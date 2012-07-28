@@ -1,5 +1,5 @@
 var uploadPath = '/public/uploads';
-var TMPDIR = '.' + uploadPath;
+var TMPDIR = __dirname + uploadPath;
 
 var uploadParser = require('./lib/upload').parser(uploadPath); 
 var formidable = require('formidable');
