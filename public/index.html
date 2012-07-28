@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>SuperUpload</title>
 </head>
 <body>
-	
+  <form id="superUpload" action="" method="post" enctype="multipart/form-data">
+    <input type="file" id="file" name="file" />
+    <div id="fileInformation">
+      <span id="progress"></span>
+      <span id="fileDownload"></span>
+    </div>
+    <textarea id="description" name="description"></textarea>
+    <br />
+    <input type="submit" value="Save" />
+  </form>
 </body>
 </html>
