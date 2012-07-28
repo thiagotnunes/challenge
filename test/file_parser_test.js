@@ -12,4 +12,14 @@ describe('File Parser', function() {
     file['path'].should.equal('the given path');
   });
 
+  it('should retrieve the file path from the files with null file names', function() {
+    var files = {
+      null: {
+        path: 'the given path'
+      }
+    };
+    var file = parser.parse(files);
+    file['path'].should.equal('the given path');
+  });
+
 });
