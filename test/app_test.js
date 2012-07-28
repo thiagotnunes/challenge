@@ -28,17 +28,15 @@ describe('App', function() {
 
     it('should upload a file to the server and receive the file path on the response', function(done) {
       http(uploadData, function(error, response, body) {
-        response.statusCode.should.equal(200);
-        response.headers['content-type'].should.equal('application/json; charset=utf-8');
         var uploaded = JSON.parse(body);
         http.get(baseUrl + uploaded.path, function(err, res, bod) {
-          res.statusCode.should.equal(200);
           var actual_attachment = JSON.parse(bod);
           actual_attachment['yoda'].should.equal(attachment['yoda']);
           done();
         });
       });
     });
+
   });
 
 });
