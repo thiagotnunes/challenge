@@ -26,7 +26,7 @@ describe('App', function() {
       ]
     };
 
-    it('should upload a file to the server and receive a file path on the response', function(done) {
+    it('should upload a file to the server and receive the file path on the response', function(done) {
       http(uploadData, function(error, response, body) {
         response.statusCode.should.equal(200);
         response.headers['content-type'].should.equal('application/json; charset=utf-8');
