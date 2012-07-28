@@ -9,7 +9,7 @@ describe('Upload Parser', function() {
         path: 'the given path'
       }
     };
-    var file = parser.parse(files);
+    var file = parser.first(files);
     file['path'].should.equal('/public/uploads/the given path');
   });
 
@@ -19,7 +19,7 @@ describe('Upload Parser', function() {
         path: 'the given path'
       }
     };
-    var file = parser.parse(files);
+    var file = parser.first(files);
     file['path'].should.equal('/public/uploads/the given path');
   });
 

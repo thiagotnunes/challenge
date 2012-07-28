@@ -17,7 +17,7 @@ app.post('/upload', function(req, res) {
   var form = new formidable.IncomingForm();
   form.uploadDir = TMPDIR;
   form.parse(req, function(error, fields, files) {
-    res.json(filesParser.parse(files));
+    res.json(filesParser.first(files));
   });
 });
 
