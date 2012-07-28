@@ -1,5 +1,5 @@
 var basePath = '/public/uploads';
-var parser = require('../lib/upload_parser').uploadParser(basePath);
+var parser = require('../lib/upload').parser(basePath);
 
 describe('Upload Parser', function() {
 

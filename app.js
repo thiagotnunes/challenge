@@ -1,7 +1,7 @@
 var uploadPath = '/public/uploads';
 var TMPDIR = '.' + uploadPath;
 
-var uploadParser = require('./lib/upload_parser').uploadParser(uploadPath); 
+var uploadParser = require('./lib/upload').parser(uploadPath); 
 var formidable = require('formidable');
 var app = require('express').createServer();
 
