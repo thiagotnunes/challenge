@@ -1,6 +1,5 @@
 var http = require('request');
-var should = require('should');
-var fs = require('fs');
+require('should');
 
 var baseUrl = 'http://localhost:3000';
 
@@ -15,15 +14,17 @@ describe('App', function() {
   it('should upload a file to the server and receive a file path on the response', function(done) {
     var image = 'test/image.png';
     var uploadUrl = baseUrl + '/upload';
-    http({
+    var uploadData = {
       method: 'POST',
       uri: uploadUrl,
-      multipart:
-      [{
-        'content-type': 'application/json',
-        body: JSON.stringify({yoda_attachment: 'this is'})
-      }]
-    }, function(error, response, body) {
+      multipart: [
+        {
+          'content-type': 'application/json',
+          body: JSON.stringify({yoda_attachment: 'this is'})
+        }
+      ]
+    };
+    http(uploadData, function(error, response, body) {
       response.statusCode.should.equal(200);
       response.headers['content-type'].should.equal('application/json; charset=utf-8');
       var uploaded = JSON.parse(body);
