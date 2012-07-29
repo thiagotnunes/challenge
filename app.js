@@ -1,7 +1,8 @@
 var uploadPath = '/public/uploads';
 var TMPDIR = __dirname + uploadPath;
-
 var filesParser = require('./lib/files_parser')(uploadPath);
+var uploadsParser = require('./lib/uploads_parser')(TMPDIR, filesParser);
+
 var formidable = require('formidable');
 var app = require('express').createServer();
 
@@ -14,11 +15,7 @@ app.get('/public/uploads/:filename', function(req, res) {
 });
 
 app.post('/upload', function(req, res) {
-  var form = new formidable.IncomingForm();
-  form.uploadDir = TMPDIR;
-  form.parse(req, function(error, fields, files) {
-    res.json(filesParser.first(files));
-  });
+  uploadsParser.handle(new formidable.IncomingForm(), req, res);
 });
 
 app.listen(3000);
