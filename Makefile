@@ -3,7 +3,7 @@ REPORTER = spec
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha \
-		--require should \
+		--require test/test_helper \
 		--reporter $(REPORTER) \
 		--timeout 100 \
 		--growl \

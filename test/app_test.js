@@ -1,9 +1,6 @@
-var http = require('request');
-require('should');
-
-var baseUrl = 'http://localhost:3000';
-
 describe('App', function() {
+  var baseUrl = 'http://localhost:3000';
+
   it('should get OK for index', function(done) {
     http.get(baseUrl, function(error, response, body) {
       response.statusCode.should.equal(200);

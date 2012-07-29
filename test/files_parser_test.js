@@ -1,7 +1,10 @@
-var basePath = '/public/uploads';
-var parser = require('../lib/files_parser')(basePath);
-
 describe('Upload Parser', function() {
+  var basePath = '/public/uploads';
+  var parser;
+
+  beforeEach(function() {
+    parser = require('../lib/files_parser')(basePath);
+  });
 
   it('should retrieve the file path with the base path from the files', function() {
     var files = {
