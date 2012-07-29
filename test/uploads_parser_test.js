@@ -29,6 +29,6 @@ describe('Uploads parser', function() {
 
     uploadsParser.handle(form, req, res);
 
-    expect(parse.calledWith(req, sinon.match.any)).to.be.ok;
+    parse.calledWith(req, sinon.match.any).should.be.ok;
   });
 });
