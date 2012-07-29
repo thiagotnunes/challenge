@@ -25,6 +25,22 @@ describe('Uploads parser', function() {
     parse.calledWith(req, sinon.match.any).should.be.ok;
   });
 
+  it('should return a json response with the parsed form', function() {
+    var files = sinon.stub();
+    var filesParser = {
+      first: sinon.stub().withArgs(files).returns("parsedFile")
+    };
+    uploadsParser = require('../lib/uploads_parser')(uploadDir, filesParser);
+    var res = {
+      json: function() {}
+    };
+    var json = sinon.spy(res, "json");
+
+    uploadsParser.parse(null, null, files, res);
+
+    json.calledWith("parsedFile").should.be.ok;
+  });
+
   it('should bind to the progress event', function() {
     var on = sinon.spy(form, "on");
 
