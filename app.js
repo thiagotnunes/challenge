@@ -9,12 +9,18 @@ var uploadsParser = require('./lib/uploads_parser')(TMPDIR, filesParser, uploads
 // Vendor modules
 var formidable = require('formidable');
 var express = require('express');
+var uuid = require('node-uuid');
 
 var app = express();
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public'));
 
 app.configure('development', function(){
-  app.use(express.static(__dirname + '/public'));
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.get('/', function(req, res) {
+  res.render('index', { fileUuid: uuid.v4() });
 });
 
 app.get('/public/uploads/:filename', function(req, res) {
