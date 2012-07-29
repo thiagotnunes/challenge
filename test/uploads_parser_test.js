@@ -11,7 +11,8 @@ describe('Uploads parser', function() {
 
   it('should set the uploads directory', function() {
     var form = {
-      parse: function() {}
+      parse: function() {},
+      on: function() {}
     };
 
     uploadsParser.handle(form);
@@ -21,14 +22,27 @@ describe('Uploads parser', function() {
 
   it('should parse the form', function() {
     var form = {
-      parse: function() {}
+      parse: function() {},
+      on: function() {}
     };
     var parse = sinon.spy(form, "parse");
     var req = sinon.stub();
     var res = sinon.stub();
 
-    uploadsParser.handle(form, req, res);
+    uploadsParser.handle(form, req);
 
     parse.calledWith(req, sinon.match.any).should.be.ok;
+  });
+
+  it('should bind to the progress event', function() {
+    var form = {
+      parse: function() {},
+      on: function() {}
+    };
+    var on = sinon.spy(form, "on");
+
+    uploadsParser.handle(form);
+
+    on.calledWith('progress', sinon.match.any).should.be.ok;
   });
 });
