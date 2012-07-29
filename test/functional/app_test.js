@@ -1,3 +1,6 @@
+require('should');
+var http = require('request');
+
 describe('App', function() {
   var baseUrl = 'http://localhost:3000';
 
