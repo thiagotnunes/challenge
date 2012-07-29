@@ -1,3 +1,5 @@
+var path = '../../lib/uploads_parser';
+
 describe('Uploads parser', function() {
   var form = {
     parse: function() {},
@@ -10,7 +12,7 @@ describe('Uploads parser', function() {
   describe('Setting the upload dir', function() {
     beforeEach(function() {
       uploadDir = 'uploadDir';
-      uploadsParser = require('../lib/uploads_parser')(uploadDir);
+      uploadsParser = require(path)(uploadDir);
     });
 
     it('should set the uploads directory', function() {
@@ -28,7 +30,7 @@ describe('Uploads parser', function() {
       filesParser = {
         first: sinon.stub().withArgs(files).returns("parsedFile")
       };
-      uploadsParser = require('../lib/uploads_parser')(uploadDir, filesParser);
+      uploadsParser = require(path)(uploadDir, filesParser);
     });
 
     it('should parse the form', function() {
@@ -59,7 +61,7 @@ describe('Uploads parser', function() {
       tracker = {
         setProgress: function() {}
       };
-      uploadsParser = require('../lib/uploads_parser')(uploadDir, filesParser, tracker);
+      uploadsParser = require(path)(uploadDir, filesParser, tracker);
     });
 
     it('should bind to the progress event', function() {

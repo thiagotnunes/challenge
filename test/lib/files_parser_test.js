@@ -3,7 +3,7 @@ describe('Upload Parser', function() {
   var parser;
 
   beforeEach(function() {
-    parser = require('../lib/files_parser')(basePath);
+    parser = require('../../lib/files_parser')(basePath);
   });
 
   it('should retrieve the file path with the base path from the files', function() {

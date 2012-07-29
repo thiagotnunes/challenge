@@ -3,7 +3,7 @@ describe('Uploads tracker', function() {
   var tracker;
 
   beforeEach(function() {
-    tracker = require('../lib/uploads_tracker.js')();
+    tracker = require('../../lib/uploads_tracker.js')();
   });
 
   it('should retrieve the percentage of a given file', function() {
