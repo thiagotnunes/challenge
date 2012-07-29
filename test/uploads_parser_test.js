@@ -3,49 +3,84 @@ describe('Uploads parser', function() {
     parse: function() {},
     on: function() {}
   };
-  var uploadDir = 'uploadDir';
+  var uploadDir;
+  var filesParser;
   var uploadsParser;
 
-  beforeEach(function() {
-    uploadsParser = require('../lib/uploads_parser')(uploadDir);
+  describe('Setting the upload dir', function() {
+    beforeEach(function() {
+      uploadDir = 'uploadDir';
+      uploadsParser = require('../lib/uploads_parser')(uploadDir);
+    });
+
+    it('should set the uploads directory', function() {
+      uploadsParser.handle(form);
+
+      form.uploadDir.should.be.equal(uploadDir);
+    });
   });
 
-  it('should set the uploads directory', function() {
-    uploadsParser.handle(form);
+  describe('Parsing the form', function() {
+    var files;
 
-    form.uploadDir.should.be.equal(uploadDir);
+    beforeEach(function() {
+      files = sinon.stub();
+      filesParser = {
+        first: sinon.stub().withArgs(files).returns("parsedFile")
+      };
+      uploadsParser = require('../lib/uploads_parser')(uploadDir, filesParser);
+    });
+
+    it('should parse the form', function() {
+      var parse = sinon.spy(form, "parse");
+      var req = sinon.stub();
+
+      uploadsParser.handle(form, req);
+
+      parse.calledWith(req, sinon.match.any).should.be.ok;
+    });
+
+    it('should return a json response with the parsed form', function() {
+      var res = {
+        json: function() {}
+      };
+      var json = sinon.spy(res, "json");
+
+      uploadsParser.parse(null, null, files, res);
+
+      json.calledWith("parsedFile").should.be.ok;
+    });
   });
 
-  it('should parse the form', function() {
-    var parse = sinon.spy(form, "parse");
-    var req = sinon.stub();
+  describe('Binding the progress', function() {
+    var tracker;
 
-    uploadsParser.handle(form, req);
+    beforeEach(function() {
+      tracker = {
+        setProgress: function() {}
+      };
+      uploadsParser = require('../lib/uploads_parser')(uploadDir, filesParser, tracker);
+    });
 
-    parse.calledWith(req, sinon.match.any).should.be.ok;
-  });
+    it('should bind to the progress event', function() {
+      var on = sinon.spy(form, "on");
 
-  it('should return a json response with the parsed form', function() {
-    var files = sinon.stub();
-    var filesParser = {
-      first: sinon.stub().withArgs(files).returns("parsedFile")
-    };
-    uploadsParser = require('../lib/uploads_parser')(uploadDir, filesParser);
-    var res = {
-      json: function() {}
-    };
-    var json = sinon.spy(res, "json");
+      uploadsParser.handle(form);
 
-    uploadsParser.parse(null, null, files, res);
+      on.calledWith('progress', sinon.match.any).should.be.ok;
+    });
 
-    json.calledWith("parsedFile").should.be.ok;
-  });
+    it('should update the percentage for the given file', function() {
+      var req = {
+        params: {
+          fileUuid: 101
+        }
+      };
+      var setProgress = sinon.spy(tracker, "setProgress");
 
-  it('should bind to the progress event', function() {
-    var on = sinon.spy(form, "on");
+      uploadsParser.updatePercentage(10, 100, req);
 
-    uploadsParser.handle(form);
-
-    on.calledWith('progress', sinon.match.any).should.be.ok;
+      setProgress.calledWith(101, 10).should.be.ok;
+    });
   });
 });
