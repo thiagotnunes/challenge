@@ -8,9 +8,6 @@ var uploadsParser = require('../lib/uploads_parser')();
 
 describe('Uploads parser', function() {
 
-  it('should parse', function() {
-  });
-
   it('should parse the form', function() {
     var form = {
       parse: function() {}
