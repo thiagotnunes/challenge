@@ -10,17 +10,18 @@
   <script type="text/javascript" src="uploader.js"></script>
   <script type="text/javascript">
     $(function() {
-        var tracker = html5UploadTracker();
+        var tracker = html5UploadTracker('progress');
         var binder = html5EventBinder(tracker);
         var formData = formDataFactory();
         var uploader = html5Uploader(binder, formData);
         $('#file').on('change', function() {
-          uploader.upload("superUpload", "/upload");
+          uploader.upload("superUpload", "/upload/<%= fileUuid %>");
         });
     });
   </script>
 </head>
 <body>
+  <%= fileUuid %>
   <form id="superUpload" action="/upload" method="post" enctype="multipart/form-data">
     <input type="file" id="file" name="file" />
     <div id="fileInformation">
