@@ -24,11 +24,12 @@ describe('Uploads parser', function() {
 
   describe('Parsing the form', function() {
     var files;
+    var parsedFile = { path: "path" };
 
     beforeEach(function() {
       files = sinon.stub();
       filesParser = {
-        first: sinon.stub().withArgs(files).returns("parsedFile")
+        first: sinon.stub().withArgs(files).returns(parsedFile)
       };
       uploadsParser = require(path)(uploadDir, filesParser);
     });
@@ -50,7 +51,7 @@ describe('Uploads parser', function() {
 
       uploadsParser.parse(null, null, files, res);
 
-      json.calledWith("parsedFile").should.be.ok;
+      json.calledWith(JSON.stringify(parsedFile)).should.be.ok;
     });
   });
 
