@@ -13,7 +13,7 @@ var fallbackProgressTracker = function(uploadTracker) {
     xhr.open("GET", url);
     xhr.onreadystatechange = function() {
       if (isReady(xhr)) {
-        if (xhr.status == 200) {
+        if (isSuccessful(xhr)) {
           uploadTracker.displayProgress(xhr);
         } else {
           uploadTracker.displayError();

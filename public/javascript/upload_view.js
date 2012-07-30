@@ -1,13 +1,8 @@
-function html5UploadTracker(progressId) {
+function uploadView(progressId) {
   var progressElement = '#' + progressId;
 
-  var displayProgress = function(evt) {
-    if (evt.lengthComputable) {
-      var progress = evt.loaded * 100 / evt.total;
-      $(progressElement).text(progress.toFixed(0) + '%');
-    } else {
-      $(progressElement).text("Unable to compute file length");
-    }
+  var displayProgress = function(progress) {
+    $(progressElement).text(progress.toFixed(0) + '%');
   };
 
   var displayError = function() {
@@ -18,8 +13,7 @@ function html5UploadTracker(progressId) {
     $(progressElement).text('File upload has been aborted. Oh no!');
   };
 
-  var displayCompletion = function(evt) {
-    var path = JSON.parse(evt.target.responseText)['path'];
+  var displayCompletion = function(path) {
     var link = $('<a></a>');
     link.attr('id', 'uploadedTo');
     link.attr('href', path);

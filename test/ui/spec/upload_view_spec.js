@@ -1,9 +1,9 @@
-describe('HTML 5 Upload Tracker', function () {
+describe('Upload View', function () {
   var progress = "fileProgress";
-  var tracker;
+  var view;
 
   beforeEach(function() {
-    tracker = html5UploadTracker(progress);
+    view = uploadView(progress);
     $('<div id="' + progress + '"></div>').appendTo($('#fixtures'));
   });
 
@@ -11,48 +11,26 @@ describe('HTML 5 Upload Tracker', function () {
     $('#fixtures').text('');
   });
 
-  it('should show the upload progress when the length is computable', function () {
-    var evt = {
-      lengthComputable: true,
-      loaded: 12.54356,
-      total: 100
-    }
-
-    tracker.displayProgress(evt);
+  it('should show the upload progress', function () {
+    view.displayProgress(12.5674);
 
     expect($('#' + progress).text()).toBe('13%');
   });
 
-  it('should show error message when it is not able to compute the file length', function() {
-    var evt = {
-      lengthComputable: false
-    };
-
-    tracker.displayProgress(evt);
-
-    expect($('#' + progress).text()).toBe('Unable to compute file length');
-  });
-
   it('should show error message when the upload has failed', function() {
-    tracker.displayError();
+    view.displayError();
 
     expect($('#' + progress).text()).toBe('There was an error attempting to upload the file, please try again.');
   });
 
   it('should show abort message when the upload has been aborted', function() {
-    tracker.displayAbortion();
+    view.displayAbortion();
 
     expect($('#' + progress).text()).toBe('File upload has been aborted. Oh no!');
   });
 
   it('should show completion message when the upload has been completed', function() {
-    var evt = {
-      target: {
-        responseText: JSON.stringify({ path: 'this is the file path' })
-      }
-    };
-
-    tracker.displayCompletion(evt);
+    view.displayCompletion('this is the file path');
 
     var uploadedTo = $('#uploadedTo');
     expect(uploadedTo.attr('href')).toBe('this is the file path');
