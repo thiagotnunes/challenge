@@ -1,8 +1,8 @@
-describe('FormData', function () {
+describe('HTML5 FormData Factory', function () {
   var factory;
 
   beforeEach(function () {
-    factory = formDataFactory();
+    factory = html5FormDataFactory();
   });
 
   afterEach(function() {
