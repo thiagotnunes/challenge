@@ -11,13 +11,14 @@
   <script type="text/javascript" src="html5_command.js"></script>
   <script type="text/javascript">
     $(function() {
-        var command = html5Command("/upload/<%= fileUuid %>");
+        var url = $('#superUploadForm').attr('action');
+        var command = html5Command(url);
         command.execute();
     });
   </script>
 </head>
 <body>
-  <form id="superUpload" action="/upload" method="post" enctype="multipart/form-data">
+  <form id="superUploadForm" action="/upload/<%= fileUuid %>" method="post" enctype="multipart/form-data">
     <input type="file" id="file" name="file" />
     <div id="fileInformation">
       <span id="progress"></span>
