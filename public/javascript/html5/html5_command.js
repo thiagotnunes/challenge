@@ -5,7 +5,7 @@ var html5Command = function(url) {
     var formData = formDataFactory();
     var uploader = html5Uploader(binder, formData);
     $('#file').on('change', function() {
-      uploader.upload("superUpload", url);
+      uploader.upload("superUploadForm", url);
     });
   };
 

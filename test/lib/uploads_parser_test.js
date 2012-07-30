@@ -45,13 +45,16 @@ describe('Uploads parser', function() {
 
     it('should return a json response with the parsed form', function() {
       var res = {
-        json: function() {}
+        contentType: function() {},
+        send: function() {}
       };
-      var json = sinon.spy(res, "json");
+      var mockedRes = sinon.mock(res);
+      mockedRes.expects("contentType").withArgs("text/plain");
+      mockedRes.expects("send").withArgs(JSON.stringify(parsedFile));
 
       uploadsParser.parse(null, null, files, res);
 
-      json.calledWith(JSON.stringify(parsedFile)).should.be.ok;
+      mockedRes.verify();
     });
   });
 
