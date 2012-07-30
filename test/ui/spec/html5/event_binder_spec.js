@@ -1,15 +1,15 @@
-describe('Event binder', function () {
-  var tracker;
+describe('HTML5 Event binder', function () {
+  var listener;
   var binder;
 
   beforeEach(function () {
-    tracker = {
-      displayProgress: function() {},
-      displayError: function() {},
-      displayAbortion: function() {},
-      displayCompletion: function() {}
+    listener = {
+      progress: function() {},
+      load: function() {},
+      error: function() {},
+      abort: function() {}
     };
-    binder = html5EventBinder(tracker);
+    binder = html5EventBinder(listener);
   });
 
   it('should bind events to the xhr', function () {
@@ -22,10 +22,10 @@ describe('Event binder', function () {
     };
     var mockedUpload = sinon.mock(upload);
     var mockedXhr = sinon.mock(xhr);
-    mockedUpload.expects("addEventListener").withArgs("progress", tracker.displayProgress).once();
-    mockedXhr.expects("addEventListener").withArgs("load", tracker.displayCompletion).once();
-    mockedXhr.expects("addEventListener").withArgs("error", tracker.displayError).once();
-    mockedXhr.expects("addEventListener").withArgs("abort", tracker.displayAbortion).once();
+    mockedUpload.expects("addEventListener").withArgs("progress", listener.progress).once();
+    mockedXhr.expects("addEventListener").withArgs("load", listener.load).once();
+    mockedXhr.expects("addEventListener").withArgs("error", listener.error).once();
+    mockedXhr.expects("addEventListener").withArgs("abort", listener.abort).once();
 
     binder.bindEventsTo(xhr);
 

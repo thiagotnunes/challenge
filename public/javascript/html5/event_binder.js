@@ -1,9 +1,9 @@
-var html5EventBinder = function(tracker) {
+var html5EventBinder = function(listener) {
   var bindEventsTo = function(xhr) {
-    xhr.upload.addEventListener("progress", tracker.displayProgress);
-    xhr.addEventListener("load", tracker.displayCompletion);
-    xhr.addEventListener("error", tracker.displayError);
-    xhr.addEventListener("abort", tracker.displayAbortion);
+    xhr.upload.addEventListener("progress", listener.progress);
+    xhr.addEventListener("load", listener.load);
+    xhr.addEventListener("error", listener.error);
+    xhr.addEventListener("abort", listener.abort);
   };
 
   return {
