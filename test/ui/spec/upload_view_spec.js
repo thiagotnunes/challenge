@@ -1,40 +1,48 @@
 describe('Upload View', function () {
   var progress = "fileProgress";
+  var progressElement;
   var view;
 
   beforeEach(function() {
     view = uploadView(progress);
     $('<div id="' + progress + '"></div>').appendTo($('#fixtures'));
+    progressElement = $('#' + progress);
   });
 
   afterEach(function() {
     $('#fixtures').text('');
   });
 
-  it('should show the upload progress', function () {
+  it('should show the upload', function () {
     view.displayProgress(12.5674);
 
-    expect($('#' + progress).text()).toBe('13%');
+    expect(progressElement.text()).toBe('13%');
   });
 
-  it('should show error message when the upload has failed', function() {
+  it('should show error message', function() {
     view.displayError();
 
-    expect($('#' + progress).text()).toBe('There was an error attempting to upload the file, please try again.');
+    expect(progressElement.text()).toBe('There was an error attempting to upload the file, please try again.');
   });
 
-  it('should show abort message when the upload has been aborted', function() {
+  it('should show abort message', function() {
     view.displayAbortion();
 
-    expect($('#' + progress).text()).toBe('File upload has been aborted. Oh no!');
+    expect(progressElement.text()).toBe('File upload has been aborted. Oh no!');
   });
 
-  it('should show completion message when the upload has been completed', function() {
+  it('should show completion message', function() {
     view.displayCompletion('this is the file path');
 
     var uploadedTo = $('#uploadedTo');
     expect(uploadedTo.attr('href')).toBe('this is the file path');
     expect(uploadedTo.text()).toBe('Uploaded to here.');
+  });
+
+  it('should show unknown progress message', function() {
+    view.displayUnknownProgress();
+
+    expect(progressElement.text()).toBe('Unable to retrieve upload progress.');
   });
 });
 
