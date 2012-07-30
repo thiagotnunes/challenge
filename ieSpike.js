@@ -28,9 +28,6 @@
           var file = $.parseJSON(xhr.responseText);
           var text = $('#progress').text();
           $('#progress').text(file.progress + '%');
-          if (file.progress === "100") {
-            clearInterval(int);
-          }
         }
       };
       xhr.send(null);
