@@ -1,7 +1,8 @@
 var html5Command = function(url) {
   var execute = function() {
-    var tracker = html5UploadTracker('progress');
-    var binder = html5EventBinder(tracker);
+    var view = uploadView('progress');
+    var listener = html5EventListener(view);
+    var binder = html5EventBinder(listener);
     var formData = formDataFactory();
     var uploader = html5Uploader(binder, formData);
     $('#file').on('change', function() {
