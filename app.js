@@ -13,7 +13,7 @@ var uuid = require('node-uuid');
 
 var app = express();
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/javascript'));
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));

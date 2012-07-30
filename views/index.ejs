@@ -3,6 +3,22 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SuperUpload</title>
+  <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="html5_upload_tracker.js"></script>
+  <script type="text/javascript" src="html5_event_binder.js"></script>
+  <script type="text/javascript" src="form_data_factory.js"></script>
+  <script type="text/javascript" src="html5_uploader.js"></script>
+  <script type="text/javascript">
+    $(function() {
+        var tracker = html5UploadTracker();
+        var binder = html5EventBinder(tracker);
+        var formData = formDataFactory();
+        var uploader = html5Uploader(binder, formData);
+        $('#file').on('change', function() {
+          uploader.upload("superUpload", "/upload");
+        });
+    });
+  </script>
 </head>
 <body>
   <form id="superUpload" action="/upload" method="post" enctype="multipart/form-data">
