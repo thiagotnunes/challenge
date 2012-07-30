@@ -12,26 +12,39 @@ describe('App', function() {
   });
 
   describe('File upload', function() {
-
-    var uploadUrl = baseUrl + '/upload';
+    var uploadUrl = baseUrl + '/upload/101';
     var attachment = {yoda: 'i am'};
-    var uploadData = {
-      method: 'POST',
-      uri: uploadUrl,
-      multipart: [
-        {
-          'content-type': 'application/json',
-          body: JSON.stringify(attachment)
-        }
-      ]
+    var uploadData = function() {
+      return {
+        method: 'POST',
+        uri: uploadUrl,
+        multipart: [
+          {
+            'content-type': 'application/json',
+            body: JSON.stringify(attachment)
+          }
+        ]
+      };
     };
 
     it('should upload a file to the server and receive the file path on the response', function(done) {
-      http(uploadData, function(error, response, body) {
+      http(uploadData(), function(error, response, body) {
         var uploaded = JSON.parse(body);
         http.get(baseUrl + uploaded.path, function(err, res, bod) {
           var actual_attachment = JSON.parse(bod);
           actual_attachment['yoda'].should.equal(attachment['yoda']);
+          done();
+        });
+      });
+    });
+
+    it('should have a 100% progress when file is done uploading', function(done){
+      http(uploadData(), function(error, response, body) {
+        var uploaded = JSON.parse(body);
+        http.get(baseUrl + '/progress/101', function(err, res, bod) {
+          var file = JSON.parse(bod);
+          file.uuid.should.equal('101');
+          file.progress.should.equal('100');
           done();
         });
       });
