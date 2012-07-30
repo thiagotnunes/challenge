@@ -1,16 +1,16 @@
 describe('HTML 5 Uploader', function () {
   var binder;
-  var factory;
+  var formData;
   var uploader;
 
   beforeEach(function () {
     binder = {
       bindEventsTo: function() {}
     };
-    factory = {
+    formData = {
       from: function() {}
     };
-    uploader = html5Uploader(binder, factory);
+    uploader = html5Uploader(binder, formData);
   });
 
   it('should upload the form data', function() {
@@ -18,16 +18,16 @@ describe('HTML 5 Uploader', function () {
       open: function() {},
       send: function() {}
     };
-    var formData = {};
+    var data = {};
     var mockedBinder = sinon.mock(binder);
-    var mockedFactory = sinon.mock(factory);
+    var mockedFactory = sinon.mock(formData);
     var mockedXhr = sinon.mock(xhr);
 
     mockedBinder.expects("bindEventsTo").withArgs(xhr);
-    mockedFactory.expects("from").withArgs("form").returns(formData);
+    mockedFactory.expects("from").withArgs("form").returns(data);
 
     mockedXhr.expects("open").withArgs("POST", "upload url").once();
-    mockedXhr.expects("send").once();
+    mockedXhr.expects("send").withArgs(data).once();
     XMLHttpRequest = sinon.mock().returns(xhr);
 
     uploader.upload("form", "upload url");
