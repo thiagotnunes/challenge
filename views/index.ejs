@@ -21,12 +21,10 @@
   </script>
 </head>
 <body>
-  <%= fileUuid %>
   <form id="superUpload" action="/upload" method="post" enctype="multipart/form-data">
     <input type="file" id="file" name="file" />
     <div id="fileInformation">
       <span id="progress"></span>
-      <span id="fileDownload"></span>
     </div>
     <textarea id="description" name="description"></textarea>
     <br />
