@@ -1,40 +1,16 @@
 describe('HTML 5 Uploader', function () {
-  var tracker;
+  var binder;
   var uploader;
 
   beforeEach(function () {
-    tracker = {
-      displayProgress: function() {},
-      displayError: function() {},
-      displayAbortion: function() {},
-      displayCompletion: function() {}
+    binder = {
+      bindEventsTo: function() {}
     };
-    uploader = html5Uploader(tracker);
+    uploader = html5Uploader(binder);
   });
 
   afterEach(function() {
     $('#fixtures').text('');
-  });
-
-  it('should bind events to the xhr', function () {
-    var upload = {
-      addEventListener: function() {},
-    };
-    var xhr = {
-      addEventListener: function() {},
-      upload: upload
-    };
-    var mockedUpload = sinon.mock(upload);
-    var mockedXhr = sinon.mock(xhr);
-    mockedUpload.expects("addEventListener").withArgs("progress", tracker.displayProgress).once();
-    mockedXhr.expects("addEventListener").withArgs("load", tracker.displayCompletion).once();
-    mockedXhr.expects("addEventListener").withArgs("error", tracker.displayError).once();
-    mockedXhr.expects("addEventListener").withArgs("abort", tracker.displayAbortion).once();
-
-    uploader.bindEventsTo(xhr);
-
-    mockedUpload.verify();
-    mockedXhr.verify();
   });
 
   it('should create the formdata using the form', function() {
@@ -51,24 +27,24 @@ describe('HTML 5 Uploader', function () {
 
   it('should upload the form data', function() {
     var xhr = {
-      addEventListener: function() {},
-      upload: { 
-        addEventListener: function() {} 
-      },
       open: function() {},
       send: function() {}
     };
     var mockedXhr = sinon.mock(xhr);
+    var mockedBinder = sinon.mock(binder);
 
     mockedXhr.expects("open").withArgs("POST", "upload url").once();
     mockedXhr.expects("send").once();
     XMLHttpRequest = sinon.mock().returns(xhr);
+
+    mockedBinder.expects("bindEventsTo").withArgs(xhr);
 
     uploader.upload("form", "upload url");
 
     expect(XMLHttpRequest.calledWithNew()).toBeTruthy();
 
     mockedXhr.verify();
+    mockedBinder.verify();
   });
 });
 
