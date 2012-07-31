@@ -1,4 +1,4 @@
-var fallbackProgressTracker = function(view) {
+var fallbackProgressTracker = function(progressUrl, view) {
 
   var isReady = function(xhr) {
     return xhr.readyState === 4;
@@ -17,9 +17,9 @@ var fallbackProgressTracker = function(view) {
     view.displayProgress(file.progress);
   };
 
-  var checkProgressOn = function(url) {
+  var checkProgress = function() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
+    xhr.open("GET", progressUrl);
     xhr.onreadystatechange = function() {
       if (isReady(xhr)) {
         if (isSuccessful(xhr)) {
@@ -33,6 +33,6 @@ var fallbackProgressTracker = function(view) {
   };
 
   return {
-    checkProgressOn: checkProgressOn
+    checkProgress: checkProgress
   };
 };

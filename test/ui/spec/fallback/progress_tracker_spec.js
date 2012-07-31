@@ -14,17 +14,16 @@ describe('Fallback Progress tracker', function() {
       send: function() {},
     };
     XMLHttpRequest = sinon.mock().returns(xhr);
-    tracker = fallbackProgressTracker(view);
+    tracker = fallbackProgressTracker('/progress/101', view);
   });
 
   it('should make a request to progress url', function() {
-    var url = '/progress/101';
     var mockedXhr = sinon.mock(xhr);
 
-    mockedXhr.expects("open").withArgs("GET", url).once();
+    mockedXhr.expects("open").withArgs("GET", '/progress/101').once();
     mockedXhr.expects("send").once();
 
-    tracker.checkProgressOn(url);
+    tracker.checkProgress();
 
     expect(XMLHttpRequest.calledWithNew()).toBeTruthy();
     mockedXhr.verify();
@@ -37,7 +36,7 @@ describe('Fallback Progress tracker', function() {
     var mockView = sinon.mock(view);
     mockView.expects("displayProgress").withArgs('33').once();
 
-    tracker.checkProgressOn('url');
+    tracker.checkProgress();
     xhr.onreadystatechange();
 
     mockView.verify();
@@ -50,7 +49,7 @@ describe('Fallback Progress tracker', function() {
     var mockView = sinon.mock(view);
     mockView.expects("displayError").once();
 
-    tracker.checkProgressOn('url');
+    tracker.checkProgress();
     xhr.onreadystatechange();
 
     mockView.verify();
