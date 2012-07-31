@@ -7,7 +7,7 @@ var fallbackCommand = function(progressUrl, ids) {
   };
 
   var execute = function() {
-    var view = uploadView(ids.progress, ids.filePath);
+    var view = uploadView(ids.progress, ids.uploadPath);
     var iframe = fetchIFrame();
     var tracker = fallbackProgressTracker(progressUrl, view);
     var uploader = fallbackUploader(iframe, tracker);
