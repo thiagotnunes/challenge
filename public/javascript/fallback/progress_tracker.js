@@ -30,6 +30,7 @@ var fallbackProgressTracker = function(progressUrl, view) {
 
   var uploadComplete = function(responseText) {
     var file = parseResponse(responseText);
+    view.displayProgress(100);
     view.displayCompletion(file.path);
   };
 

@@ -65,6 +65,7 @@ describe('Fallback Progress tracker', function() {
 
     it('should display completion message when uploads completes', function() {
       var response = JSON.stringify({ path: 'this is the returned path' });
+      mockView.expects("displayProgress").withArgs(100).once();
       mockView.expects("displayCompletion").withArgs('this is the returned path').once();
 
       tracker.uploadComplete(response);
