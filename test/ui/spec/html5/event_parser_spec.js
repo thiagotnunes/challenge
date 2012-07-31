@@ -1,5 +1,5 @@
-describe('HTML 5 Event listener', function () {
-  var listener;
+describe('HTML 5 Event parser', function () {
+  var parser;
   var mockView;
 
   beforeEach(function () {
@@ -11,7 +11,7 @@ describe('HTML 5 Event listener', function () {
       displayUnknownProgress: function() {}
     };
     mockView = sinon.mock(view);
-    listener = html5EventListener(view);
+    parser = html5EventParser(view);
   });
 
   afterEach(function() {
@@ -26,7 +26,7 @@ describe('HTML 5 Event listener', function () {
     };
     mockView.expects("displayProgress").withArgs(20).once();
 
-    listener.progress(evt);
+    parser.progress(evt);
   });
 
   it('should display unknown progress when length is not computable', function() {
@@ -35,7 +35,7 @@ describe('HTML 5 Event listener', function () {
     };
     mockView.expects("displayUnknownProgress").once();
 
-    listener.progress(evt);
+    parser.progress(evt);
   });
 
   it('should retrieve the path from the event and display it', function() {
@@ -46,19 +46,19 @@ describe('HTML 5 Event listener', function () {
     };
     mockView.expects("displayCompletion").withArgs('this is the file path').once();
 
-    listener.load(evt);
+    parser.load(evt);
   });
 
   it('should display error message', function() {
     mockView.expects("displayError").once();
 
-    listener.error();
+    parser.error();
   });
 
   it('should display abortion message', function() {
     mockView.expects("displayAbortion").once();
 
-    listener.abort();
+    parser.abort();
   });
 });
 

@@ -1,4 +1,4 @@
-var html5EventListener = function(view) {
+var html5EventParser = function(view) {
 
   var progress = function(evt) {
     if (evt.lengthComputable) {
