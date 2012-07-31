@@ -1,14 +1,19 @@
-var fallbackCommand = function(progressUrl) {
-  var execute = function() {
-    var view = uploadView('progress');
+var fallbackCommand = function(progressUrl, ids) {
+  var fetchIFrame = function() {
     var builder = iframeBuilder();
     var iframe = builder.hiddenFrame('hidden_frame');
     iframe.appendTo('body');
+    return iframe;
+  };
+
+  var execute = function() {
+    var view = uploadView(ids.progress);
+    var iframe = fetchIFrame();
     var tracker = fallbackProgressTracker(progressUrl, view);
     var uploader = fallbackUploader(iframe, tracker);
-    var form = $('#superUploadForm');
+    var form = $('#' + ids.form);
     form.attr('target', iframe.attr('id'));
-    $('#file').on('change', function() {
+    $('#' + ids.file).on('change', function() {
       uploader.upload(form);
     });
   };

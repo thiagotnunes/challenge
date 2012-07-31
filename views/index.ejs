@@ -18,8 +18,13 @@
     $(function() {
         var uploadUrl = $('#superUploadForm').attr('action');
         var progressUrl = '/progress/<%= fileUuid %>';
-        //var command = html5Command(uploadUrl);
-        var command = fallbackCommand(progressUrl);
+        var ids = {
+          progress: 'progress',
+          file: 'file',
+          form: 'superUploadForm'
+        };
+        //var command = html5Command(uploadUrl, ids);
+        var command = fallbackCommand(progressUrl, ids);
         command.execute();
     });
   </script>

@@ -1,12 +1,12 @@
-var html5Command = function(url) {
+var html5Command = function(uploadUrl, ids) {
   var execute = function() {
-    var view = uploadView('progress');
+    var view = uploadView(ids.progress);
     var listener = html5EventListener(view);
     var binder = html5EventBinder(listener);
     var factory = html5FormDataFactory();
     var uploader = html5Uploader(binder, factory);
-    $('#file').on('change', function() {
-      uploader.upload("superUploadForm", url);
+    $('#' + ids.file).on('change', function() {
+      uploader.upload(ids.form, uploadUrl);
     });
   };
 

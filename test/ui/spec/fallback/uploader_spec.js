@@ -51,6 +51,7 @@ describe('Fallback uploader', function () {
     uploader.upload(form);
 
     setInterval.verify();
+    mockForm.verify();
   });
 });
 
