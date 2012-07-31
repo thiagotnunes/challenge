@@ -5,15 +5,21 @@
 	<title>SuperUpload</title>
   <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
   <script type="text/javascript" src="upload_view.js"></script>
-  <script type="text/javascript" src="event_listener.js"></script>
-  <script type="text/javascript" src="event_binder.js"></script>
-  <script type="text/javascript" src="form_data_factory.js"></script>
-  <script type="text/javascript" src="uploader.js"></script>
-  <script type="text/javascript" src="html5_command.js"></script>
+  <script type="text/javascript" src="html5/event_listener.js"></script>
+  <script type="text/javascript" src="html5/event_binder.js"></script>
+  <script type="text/javascript" src="html5/form_data_factory.js"></script>
+  <script type="text/javascript" src="html5/uploader.js"></script>
+  <script type="text/javascript" src="html5/html5_command.js"></script>
+  <script type="text/javascript" src="fallback/iframe_builder.js"></script>
+  <script type="text/javascript" src="fallback/progress_tracker.js"></script>
+  <script type="text/javascript" src="fallback/uploader.js"></script>
+  <script type="text/javascript" src="fallback/fallback_command.js"></script>
   <script type="text/javascript">
     $(function() {
-        var url = $('#superUploadForm').attr('action');
-        var command = html5Command(url);
+        var uploadUrl = $('#superUploadForm').attr('action');
+        var progressUrl = '/progress/<%= fileUuid %>';
+        //var command = html5Command(uploadUrl);
+        var command = fallbackCommand(progressUrl);
         command.execute();
     });
   </script>

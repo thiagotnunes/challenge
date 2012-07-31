@@ -14,7 +14,8 @@ var uuid = require('node-uuid');
 var app = express();
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/javascript'));
-app.use(express.static(__dirname + '/public/javascript/html5'));
+app.use('html5', express.static(__dirname + '/public/javascript/html5'));
+app.use('fallback', express.static(__dirname + '/public/javascript/fallback'));
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));

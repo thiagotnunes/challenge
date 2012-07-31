@@ -11,7 +11,7 @@ var fallbackUploader = function(iframe, tracker) {
 
   var upload = function(form) {
     var interval = setInterval(tracker.checkProgress, 2000);
-    iframe.load = function() { uploadDone(interval); };
+    $(iframe).on('load', function() { uploadComplete(interval); });
     form.submit();
   };
 

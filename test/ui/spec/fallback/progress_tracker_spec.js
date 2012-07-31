@@ -40,7 +40,7 @@ describe('Fallback Progress tracker', function() {
       xhr['readyState'] = 4;
       xhr['status'] = 200;
       xhr['responseText'] = JSON.stringify({ progress: '33' });
-      mockView.expects("displayProgress").withArgs('33').once();
+      mockView.expects("displayProgress").withArgs(33).once();
 
       tracker.checkProgress();
       xhr.onreadystatechange();

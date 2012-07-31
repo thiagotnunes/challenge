@@ -19,7 +19,7 @@ var fallbackProgressTracker = function(progressUrl, view) {
       if (isReady(xhr)) {
         if (isSuccessful(xhr)) {
           var file = parseResponse(xhr.responseText);
-          view.displayProgress(file.progress);
+          view.displayProgress(parseFloat(file.progress));
         } else {
           view.displayError();
         }
