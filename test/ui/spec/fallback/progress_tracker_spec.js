@@ -1,12 +1,12 @@
 describe('Fallback Progress tracker', function() {
   var tracker;
-  var parser;
+  var view;
   var xhr;
 
   beforeEach(function() {
-    parser = {
-      progress: function() {},
-      error: function() {}
+    view = {
+      displayProgress: function() {},
+      displayError: function() {}
     };
     xhr = {
       open: function() {},
@@ -14,32 +14,7 @@ describe('Fallback Progress tracker', function() {
       send: function() {},
     };
     XMLHttpRequest = sinon.mock().returns(xhr);
-    tracker = fallbackProgressTracker(parser);
-  });
-
-  it('should parse response when request completes successfully', function() {
-    xhr['readyState'] = 4;
-    xhr['status'] = 200;
-    var mockParser = sinon.mock(parser);
-    mockParser.expects("progress").withArgs(xhr).once();
-
-    tracker.checkProgressOn('url');
-    xhr.onreadystatechange();
-
-    mockParser.verify();
-  });
-
-  it('should parse error when request completes unsuccessfully', function() {
-    xhr['readyState'] = 4;
-    xhr['status'] = 404;
-
-    var mockParser = sinon.mock(parser);
-    mockParser.expects("error").once();
-
-    tracker.checkProgressOn('url');
-    xhr.onreadystatechange();
-
-    mockParser.verify();
+    tracker = fallbackProgressTracker(view);
   });
 
   it('should make a request to progress url', function() {
@@ -53,5 +28,31 @@ describe('Fallback Progress tracker', function() {
 
     expect(XMLHttpRequest.calledWithNew()).toBeTruthy();
     mockedXhr.verify();
+  });
+
+  it('should display progress when request completes successfully', function() {
+    xhr['readyState'] = 4;
+    xhr['status'] = 200;
+    xhr['responseText'] = JSON.stringify({ progress: '33' });
+    var mockView = sinon.mock(view);
+    mockView.expects("displayProgress").withArgs('33').once();
+
+    tracker.checkProgressOn('url');
+    xhr.onreadystatechange();
+
+    mockView.verify();
+  });
+
+  it('should display error when request completes unsuccessfully', function() {
+    xhr['readyState'] = 4;
+    xhr['status'] = 404;
+
+    var mockView = sinon.mock(view);
+    mockView.expects("displayError").once();
+
+    tracker.checkProgressOn('url');
+    xhr.onreadystatechange();
+
+    mockView.verify();
   });
 });
