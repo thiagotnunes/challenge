@@ -8,13 +8,8 @@ var fallbackProgressTracker = function(progressUrl, view) {
     return xhr.status === 200;
   };
 
-  var parseResponse = function(xhr) {
-    return $.parseJSON(xhr.responseText);
-  };
-
-  var handleSuccess = function(xhr) {
-    var file = parseResponse(xhr);
-    view.displayProgress(file.progress);
+  var parseResponse = function(responseText) {
+    return $.parseJSON(responseText);
   };
 
   var checkProgress = function() {
@@ -23,7 +18,8 @@ var fallbackProgressTracker = function(progressUrl, view) {
     xhr.onreadystatechange = function() {
       if (isReady(xhr)) {
         if (isSuccessful(xhr)) {
-          handleSuccess(xhr);
+          var file = parseResponse(xhr.responseText);
+          view.displayProgress(file.progress);
         } else {
           view.displayError();
         }
@@ -32,7 +28,13 @@ var fallbackProgressTracker = function(progressUrl, view) {
     xhr.send(null);
   };
 
+  var uploadComplete = function(responseText) {
+    var file = parseResponse(responseText);
+    view.displayCompletion(file.path);
+  };
+
   return {
-    checkProgress: checkProgress
+    checkProgress: checkProgress,
+    uploadComplete: uploadComplete
   };
 };
