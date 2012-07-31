@@ -40,6 +40,11 @@ function uploadView(ids) {
     return $(iframeId);
   };
 
+  var clearUploadedData = function() {
+    $(progressId).text('');
+    $(pathId).text('');
+  };
+
   return {
     displayProgress: displayProgress,
     displayError: displayError,
@@ -48,6 +53,7 @@ function uploadView(ids) {
     displayUnknownProgress: displayUnknownProgress,
     form: form,
     file: file,
-    iframe: iframe
+    iframe: iframe,
+    clearUploadedData: clearUploadedData
   };
 }

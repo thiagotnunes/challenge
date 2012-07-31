@@ -69,10 +69,20 @@ describe('Upload View', function () {
     expect(file[0]).toBe($('#' + ids.file)[0]);
   });
 
-  it('should fetech the iframe', function() {
+  it('should fetch the iframe', function() {
     var iframe = view.iframe();
 
     expect(iframe[0]).toBe($('#' + ids.iframe)[0]);
+  });
+
+  it('should clean the progress and path elements', function() {
+    progressElement.text('garbage');
+    pathElement.text('another garbage');
+
+    view.clearUploadedData();
+
+    expect(progressElement.text()).toBe('');
+    expect(pathElement.text()).toBe('');
   });
 });
 
