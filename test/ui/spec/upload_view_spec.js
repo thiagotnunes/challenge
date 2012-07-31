@@ -1,11 +1,13 @@
 describe('Upload View', function () {
   var progress = "fileProgress";
+  var path = "uploadedPath";
   var progressElement;
   var view;
 
   beforeEach(function() {
-    view = uploadView(progress);
+    view = uploadView(progress, path);
     $('<div id="' + progress + '"></div>').appendTo($('#fixtures'));
+    $('<div id="' + path + '"></div>').appendTo($('#fixtures'));
     progressElement = $('#' + progress);
   });
 
@@ -13,7 +15,7 @@ describe('Upload View', function () {
     $('#fixtures').text('');
   });
 
-  it('should show the upload', function () {
+  it('should show the upload progress', function () {
     view.displayProgress(12.5674);
 
     expect(progressElement.text()).toBe('13%');
@@ -34,7 +36,7 @@ describe('Upload View', function () {
   it('should show completion message', function() {
     view.displayCompletion('this is the file path');
 
-    var uploadedTo = $('#uploadedTo');
+    var uploadedTo = $('#' + path).children();
     expect(uploadedTo.attr('href')).toBe('this is the file path');
     expect(uploadedTo.text()).toBe('Uploaded to here.');
   });

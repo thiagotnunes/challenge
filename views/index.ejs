@@ -21,7 +21,8 @@
         var ids = {
           progress: 'progress',
           file: 'file',
-          form: 'superUploadForm'
+          form: 'superUploadForm',
+          filePath: 'path'
         };
         //var command = html5Command(uploadUrl, ids);
         var command = fallbackCommand(progressUrl, ids);
@@ -34,6 +35,7 @@
     <input type="file" id="file" name="file" />
     <div id="fileInformation">
       <span id="progress"></span>
+      <span id="path"></span>
     </div>
     <textarea id="description" name="description"></textarea>
     <br />

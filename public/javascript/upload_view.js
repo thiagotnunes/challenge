@@ -1,5 +1,6 @@
-function uploadView(progressId) {
+function uploadView(progressId, pathId) {
   var progressElement = '#' + progressId;
+  var pathElement = '#' + pathId;
 
   var displayProgress = function(progress) {
     $(progressElement).text(progress.toFixed(0) + '%');
@@ -15,10 +16,9 @@ function uploadView(progressId) {
 
   var displayCompletion = function(path) {
     var link = $('<a></a>');
-    link.attr('id', 'uploadedTo');
     link.attr('href', path);
     link.text('Uploaded to here.');
-    $(progressElement).append(link);
+    $(pathElement).append(link);
   };
 
   var displayUnknownProgress = function() {
