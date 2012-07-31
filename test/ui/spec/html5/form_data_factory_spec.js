@@ -15,7 +15,7 @@ describe('HTML5 FormData Factory', function () {
     
     FormData = sinon.spy();
 
-    factory.from("form");
+    factory.from(form);
 
     expect(FormData.calledWithNew()).toBeTruthy();
     expect(FormData.calledWith(form[0])).toBeTruthy();
