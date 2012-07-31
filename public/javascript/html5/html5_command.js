@@ -4,8 +4,8 @@ var html5Command = function(uploadUrl, view) {
     var binder = html5EventBinder(listener);
     var factory = html5FormDataFactory();
     var uploader = html5Uploader(binder, factory);
-    $('#' + ids.file).on('change', function() {
-      uploader.upload(ids.form, uploadUrl);
+    view.file().on('change', function() {
+      uploader.upload(view.form(), uploadUrl);
     });
   };
 

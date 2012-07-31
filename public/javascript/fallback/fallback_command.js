@@ -1,11 +1,11 @@
 var fallbackCommand = function(progressUrl, view) {
   var execute = function() {
-    var iframe = $('#' + ids.iframe);
+    var iframe = view.iframe();
     var tracker = fallbackProgressTracker(progressUrl, view);
     var uploader = fallbackUploader(iframe, tracker);
-    var form = $('#' + ids.form);
+    var form = view.form();
     form.attr('target', iframe.attr('id'));
-    $('#' + ids.file).on('change', function() {
+    view.file().on('change', function() {
       uploader.upload(form);
     });
   };
