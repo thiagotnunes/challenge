@@ -10,7 +10,6 @@
   <script type="text/javascript" src="html5/form_data_factory.js"></script>
   <script type="text/javascript" src="html5/uploader.js"></script>
   <script type="text/javascript" src="html5/html5_command.js"></script>
-  <script type="text/javascript" src="fallback/iframe_builder.js"></script>
   <script type="text/javascript" src="fallback/progress_tracker.js"></script>
   <script type="text/javascript" src="fallback/uploader.js"></script>
   <script type="text/javascript" src="fallback/fallback_command.js"></script>
@@ -22,7 +21,8 @@
           progress: 'progress',
           file: 'file',
           form: 'superUploadForm',
-          uploadPath: 'path'
+          uploadPath: 'path',
+          iframe: 'hidden_frame'
         };
         //var command = html5Command(uploadUrl, ids);
         var command = fallbackCommand(progressUrl, ids);
@@ -41,5 +41,6 @@
     <br />
     <input type="submit" value="Save" />
   </form>
+  <iframe id="hidden_frame" name="hidden_frame" style="display: none;" />
 </body>
 </html>

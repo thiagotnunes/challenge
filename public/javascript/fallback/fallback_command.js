@@ -1,14 +1,7 @@
 var fallbackCommand = function(progressUrl, ids) {
-  var fetchIFrame = function() {
-    var builder = iframeBuilder();
-    var iframe = builder.hiddenFrame('hidden_frame');
-    iframe.appendTo('body');
-    return iframe;
-  };
-
   var execute = function() {
     var view = uploadView(ids.progress, ids.uploadPath);
-    var iframe = fetchIFrame();
+    var iframe = $('#' + ids.iframe);
     var tracker = fallbackProgressTracker(progressUrl, view);
     var uploader = fallbackUploader(iframe, tracker);
     var form = $('#' + ids.form);
