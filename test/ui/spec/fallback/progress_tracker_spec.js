@@ -1,4 +1,4 @@
-describe('Progress tracker', function() {
+describe('Fallback Progress tracker', function() {
   var tracker;
   var parser;
   var xhr;
