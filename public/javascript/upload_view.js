@@ -1,6 +1,9 @@
 function uploadView(ids) {
   var progressId = '#' + ids.progress;
   var pathId = '#' + ids.uploadPath;
+  var fileId = '#' + ids.file;
+  var formId = '#' + ids.form;
+  var iframeId = '#' + ids.iframe;
 
   var displayProgress = function(progress) {
     $(progressId).text(progress.toFixed(0) + '%');
@@ -25,11 +28,26 @@ function uploadView(ids) {
     $(progressId).text('Unable to retrieve upload progress.');
   };
 
+  var form = function() {
+    return $(formId);
+  };
+
+  var file = function() {
+    return $(fileId);
+  };
+
+  var iframe = function() {
+    return $(iframeId);
+  };
+
   return {
     displayProgress: displayProgress,
     displayError: displayError,
     displayAbortion: displayAbortion,
     displayCompletion: displayCompletion,
-    displayUnknownProgress: displayUnknownProgress
+    displayUnknownProgress: displayUnknownProgress,
+    form: form,
+    file: file,
+    iframe: iframe
   };
 }
