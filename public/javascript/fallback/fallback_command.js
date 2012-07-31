@@ -6,6 +6,7 @@ var fallbackCommand = function(progressUrl, view) {
     var form = view.form();
     form.attr('target', iframe.attr('id'));
     view.file().on('change', function() {
+      view.clearUploadedData();
       uploader.upload(form);
     });
   };

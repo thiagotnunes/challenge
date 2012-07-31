@@ -5,6 +5,7 @@ var html5Command = function(uploadUrl, view) {
     var factory = html5FormDataFactory();
     var uploader = html5Uploader(binder, factory);
     view.file().on('change', function() {
+      view.clearUploadedData();
       uploader.upload(view.form(), uploadUrl);
     });
   };
