@@ -1,14 +1,14 @@
 var iframeBuilder = function() {
-  var build = function(id, onLoad) {
-    var frame = $('<iframe />');
-    frame.attr('id', id);
-    frame.attr('name', id);
-    frame.on('load', onLoad);
+  var hiddenFrame = function(id) {
+    var iframe = $('<iframe />');
+    iframe.attr('id', id);
+    iframe.attr('name', id);
+    iframe.attr('style', 'display: none;');
 
-    return frame;
+    return iframe;
   };
 
   return {
-    build: build
+    hiddenFrame: hiddenFrame
   };
 };
