@@ -1,14 +1,18 @@
 describe('Upload View', function () {
-  var progress = "fileProgress";
-  var path = "uploadedPath";
+  var ids = {
+    progress: 'fileProgress',
+    uploadPath: 'uploadedPath'
+  };
   var progressElement;
+  var pathElement;
   var view;
 
   beforeEach(function() {
-    view = uploadView(progress, path);
-    $('<div id="' + progress + '"></div>').appendTo($('#fixtures'));
-    $('<div id="' + path + '"></div>').appendTo($('#fixtures'));
-    progressElement = $('#' + progress);
+    view = uploadView(ids);
+    $('<div id="' + ids.progress + '"></div>').appendTo($('#fixtures'));
+    $('<div id="' + ids.uploadPath + '"></div>').appendTo($('#fixtures'));
+    progressElement = $('#' + ids.progress);
+    pathElement = $('#' + ids.uploadPath);
   });
 
   afterEach(function() {
@@ -36,7 +40,7 @@ describe('Upload View', function () {
   it('should show completion message', function() {
     view.displayCompletion('this is the file path');
 
-    var uploadedTo = $('#' + path).children();
+    var uploadedTo = pathElement.children();
     expect(uploadedTo.attr('href')).toBe('this is the file path');
     expect(uploadedTo.text()).toBe('Uploaded to here.');
   });

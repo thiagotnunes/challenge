@@ -17,15 +17,15 @@
     $(function() {
         var uploadUrl = $('#superUploadForm').attr('action');
         var progressUrl = '/progress/<%= fileUuid %>';
-        var ids = {
+        var view = uploadView({
           progress: 'progress',
           file: 'file',
           form: 'superUploadForm',
           uploadPath: 'path',
           iframe: 'hidden_frame'
-        };
-        //var command = html5Command(uploadUrl, ids);
-        var command = fallbackCommand(progressUrl, ids);
+        });
+        //var command = html5Command(uploadUrl, view);
+        var command = fallbackCommand(progressUrl, view);
         command.execute();
     });
   </script>

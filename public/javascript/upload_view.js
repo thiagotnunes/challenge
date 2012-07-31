@@ -1,28 +1,28 @@
-function uploadView(progressId, pathId) {
-  var progressElement = '#' + progressId;
-  var pathElement = '#' + pathId;
+function uploadView(ids) {
+  var progressId = '#' + ids.progress;
+  var pathId = '#' + ids.uploadPath;
 
   var displayProgress = function(progress) {
-    $(progressElement).text(progress.toFixed(0) + '%');
+    $(progressId).text(progress.toFixed(0) + '%');
   };
 
   var displayError = function() {
-    $(progressElement).text('There was an error attempting to upload the file, please try again.');
+    $(progressId).text('There was an error attempting to upload the file, please try again.');
   };
 
   var displayAbortion = function() {
-    $(progressElement).text('File upload has been aborted. Oh no!');
+    $(progressId).text('File upload has been aborted. Oh no!');
   };
 
   var displayCompletion = function(path) {
     var link = $('<a></a>');
     link.attr('href', path);
     link.text('Uploaded to here.');
-    $(pathElement).append(link);
+    $(pathId).append(link);
   };
 
   var displayUnknownProgress = function() {
-    $(progressElement).text('Unable to retrieve upload progress.');
+    $(progressId).text('Unable to retrieve upload progress.');
   };
 
   return {
