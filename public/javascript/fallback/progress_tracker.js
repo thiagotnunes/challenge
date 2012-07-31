@@ -1,4 +1,4 @@
-var fallbackProgressTracker = function(uploadTracker) {
+var fallbackProgressTracker = function(parser) {
 
   var isReady = function(xhr) {
     return xhr.readyState === 4;
@@ -14,9 +14,9 @@ var fallbackProgressTracker = function(uploadTracker) {
     xhr.onreadystatechange = function() {
       if (isReady(xhr)) {
         if (isSuccessful(xhr)) {
-          uploadTracker.displayProgress(xhr);
+          parser.progress(xhr);
         } else {
-          uploadTracker.displayError();
+          parser.error();
         }
       }
     };

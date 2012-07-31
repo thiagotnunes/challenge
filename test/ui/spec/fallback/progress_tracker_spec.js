@@ -1,12 +1,12 @@
 describe('Progress tracker', function() {
   var tracker;
-  var uploadTracker;
+  var parser;
   var xhr;
 
   beforeEach(function() {
-    uploadTracker = {
-      displayProgress: function() {},
-      displayError: function() {}
+    parser = {
+      progress: function() {},
+      error: function() {}
     };
     xhr = {
       open: function() {},
@@ -14,32 +14,32 @@ describe('Progress tracker', function() {
       send: function() {},
     };
     XMLHttpRequest = sinon.mock().returns(xhr);
-    tracker = fallbackProgressTracker(uploadTracker);
+    tracker = fallbackProgressTracker(parser);
   });
 
-  it('should display progress when request completes successfully', function() {
+  it('should parse response when request completes successfully', function() {
     xhr['readyState'] = 4;
     xhr['status'] = 200;
-    var mockUploadTracker = sinon.mock(uploadTracker);
-    mockUploadTracker.expects("displayProgress").withArgs(xhr).once();
+    var mockParser = sinon.mock(parser);
+    mockParser.expects("progress").withArgs(xhr).once();
 
     tracker.checkProgressOn('url');
     xhr.onreadystatechange();
 
-    mockUploadTracker.verify();
+    mockParser.verify();
   });
 
-  it('should display error when request completes unsuccessfully', function() {
+  it('should parse error when request completes unsuccessfully', function() {
     xhr['readyState'] = 4;
     xhr['status'] = 404;
 
-    var mockUploadTracker = sinon.mock(uploadTracker);
-    mockUploadTracker.expects("displayError").once();
+    var mockParser = sinon.mock(parser);
+    mockParser.expects("error").once();
 
     tracker.checkProgressOn('url');
     xhr.onreadystatechange();
 
-    mockUploadTracker.verify();
+    mockParser.verify();
   });
 
   it('should make a request to progress url', function() {
