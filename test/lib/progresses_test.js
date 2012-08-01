@@ -2,7 +2,7 @@ describe('Progresses', function() {
   var _progresses;
 
   beforeEach(function() {
-    _progresses = require('../../lib/progresses.js')();
+    _progresses = require('../../lib/progresses')();
   });
 
   it('should retrieve the percentage of a given file', function() {
