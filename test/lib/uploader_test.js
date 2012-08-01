@@ -15,7 +15,7 @@ describe('Uploader', function() {
     formParser = {
       parse: function() {}
     };
-    uploader = require('../../lib/uploader')('uploadDir', formParser, tracker);
+    uploader = require('../../lib/uploader')(formParser, tracker);
   });
 
   it('should process the given request', function() {
@@ -26,7 +26,6 @@ describe('Uploader', function() {
 
     uploader.process(form, request);
 
-    expect(form.uploadDir).to.be.equal('uploadDir');
     mockForm.verify();
   });
 });

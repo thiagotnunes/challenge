@@ -1,6 +1,5 @@
-// Uploads Path
+// Upload Path
 var uploadPath = '/public/uploads';
-var TMPDIR = __dirname + uploadPath;
 
 // Custom modules
 var filesParser = require('./lib/files_parser');
@@ -39,7 +38,7 @@ app.get('/public/uploads/:filename', function(req, res) {
 app.post('/upload/:id', function(req, res) {
   var tracker = progressTracker(req.params.id, _uploadsDao);
   var parser = formParser(res, _filesParser);
-  uploader(TMPDIR, parser, tracker).handle(new formidable.IncomingForm(), req, res);
+  uploader(parser, tracker).process(new formidable.IncomingForm(), req, res);
 });
 
 app.get('/progress/:id', function(req, res) {
