@@ -10,7 +10,7 @@ describe('Uploads dao', function() {
     var percentage = 25.54674;
     dao.setProgress(file, percentage);
 
-    dao.progressFor(file).should.be.equal("26");
+    expect(dao.progressFor(file)).to.equal("26");
   });
 
   it('should return undefined for a percentage of a file that is not in progress', function() {
