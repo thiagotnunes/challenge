@@ -5,6 +5,7 @@
 	<title>SuperUpload</title>
   <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
   <script type="text/javascript" src="upload_view.js"></script>
+  <script type="text/javascript" src="command_factory.js"></script>
   <script type="text/javascript" src="html5/event_listener.js"></script>
   <script type="text/javascript" src="html5/event_binder.js"></script>
   <script type="text/javascript" src="html5/form_data_factory.js"></script>
@@ -24,9 +25,10 @@
           uploadPath: 'path',
           iframe: 'hidden_frame'
         });
-        //var command = html5Command(uploadUrl, view);
-        var command = fallbackCommand(progressUrl, view);
-        command.execute();
+        var html5 = html5Command(uploadUrl, view);
+        var fallback = fallbackCommand(progressUrl, view);
+        var factory = commandFactory(html5, fallback);
+        factory.command().execute();
     });
   </script>
 </head>
