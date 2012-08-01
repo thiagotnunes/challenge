@@ -4,6 +4,7 @@ var TMPDIR = __dirname + uploadPath;
 
 // Custom modules
 var filesParser = require('./lib/files_parser');
+var formParser = require('./lib/form_parser');
 var uploadsDao = require('./lib/uploads_dao');
 var progressTracker = require('./lib/progress_tracker');
 var uploadsParser = require('./lib/uploads_parser');
@@ -15,8 +16,8 @@ var uuid = require('node-uuid');
 
 // Application variables
 var app = express();
-var parser = filesParser(uploadPath);
-var dao = uploadsDao();
+var _filesParser = filesParser(uploadPath);
+var _uploadsDao = uploadsDao();
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/javascript'));
@@ -36,13 +37,14 @@ app.get('/public/uploads/:filename', function(req, res) {
 });
 
 app.post('/upload/:id', function(req, res) {
-  var tracker = progressTracker(req.params.id, dao);
+  var tracker = progressTracker(req.params.id, _uploadsDao);
+  var parser = formParser(res, _filesParser);
   uploadsParser(TMPDIR, parser, tracker).handle(new formidable.IncomingForm(), req, res);
 });
 
 app.get('/progress/:id', function(req, res) {
   var id = req.params.id;
-  var progress = dao.progressFor(id);
+  var progress = _uploadsDao.progressFor(id);
   res.json({
     id: id,
     progress: progress
