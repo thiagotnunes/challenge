@@ -1,21 +1,20 @@
-describe('Uploads tracker', function() {
-
-  var tracker;
+describe('Uploads dao', function() {
+  var dao;
 
   beforeEach(function() {
-    tracker = require('../../lib/uploads_tracker.js')();
+    dao = require('../../lib/uploads_dao.js')();
   });
 
   it('should retrieve the percentage of a given file', function() {
     var file = "fileId";
     var percentage = 25.54674;
-    tracker.setProgress(file, percentage);
+    dao.setProgress(file, percentage);
 
-    tracker.progressFor(file).should.be.equal("26");
+    dao.progressFor(file).should.be.equal("26");
   });
 
   it('should return undefined for a percentage of a file that is not in progress', function() {
     var file = "unknown file";
-    expect(tracker.progressFor(file) === undefined).to.be.ok;
+    expect(dao.progressFor(file) === undefined).to.be.ok;
   });
 });

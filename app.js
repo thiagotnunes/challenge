@@ -4,7 +4,7 @@ var TMPDIR = __dirname + uploadPath;
 
 // Custom modules
 var filesParser = require('./lib/files_parser');
-var uploadsTracker = require('./lib/uploads_tracker');
+var uploadsDao = require('./lib/uploads_dao');
 var progressTracker = require('./lib/progress_tracker');
 var uploadsParser = require('./lib/uploads_parser');
 
@@ -16,7 +16,7 @@ var uuid = require('node-uuid');
 // Application variables
 var app = express();
 var parser = filesParser(uploadPath);
-var dao = uploadsTracker();
+var dao = uploadsDao();
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/javascript'));
