@@ -16,6 +16,7 @@ describe('Command factory', function() {
       }
     };
     XMLHttpRequest = sinon.stub().returns(xhr);
+
     expect(factory.command()).toBe(html5);
   });
 
