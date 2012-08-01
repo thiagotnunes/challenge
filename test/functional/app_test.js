@@ -43,7 +43,7 @@ describe('App', function() {
         var uploaded = JSON.parse(body);
         http.get(baseUrl + '/progress/101', function(err, res, bod) {
           var file = JSON.parse(bod);
-          file.uuid.should.equal('101');
+          file.id.should.equal('101');
           file.progress.should.equal('100');
           done();
         });

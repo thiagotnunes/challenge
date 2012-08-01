@@ -28,22 +28,23 @@ app.configure('development', function(){
 });
 
 app.get('/', function(req, res) {
-  res.render('index', { fileUuid: uuid.v4() });
+  res.render('index', { id: uuid.v4() });
 });
 
 app.get('/public/uploads/:filename', function(req, res) {
   res.sendfile(__dirname + '/public/uploads/' + req.params.filename);
 });
 
-app.post('/upload/:fileUuid', function(req, res) {
-  var tracker = progressTracker(req.params.fileUuid, dao);
+app.post('/upload/:id', function(req, res) {
+  var tracker = progressTracker(req.params.id, dao);
   uploadsParser(TMPDIR, parser, tracker).handle(new formidable.IncomingForm(), req, res);
 });
 
-app.get('/progress/:fileUuid', function(req, res) {
-  var progress = dao.progressFor(req.params.fileUuid);
+app.get('/progress/:id', function(req, res) {
+  var id = req.params.id;
+  var progress = dao.progressFor(id);
   res.json({
-    uuid: req.params.fileUuid,
+    id: id,
     progress: progress
   });
 });

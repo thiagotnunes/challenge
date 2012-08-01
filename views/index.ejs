@@ -14,10 +14,14 @@
   <script type="text/javascript" src="fallback/progress_tracker.js"></script>
   <script type="text/javascript" src="fallback/uploader.js"></script>
   <script type="text/javascript" src="fallback/fallback_command.js"></script>
+  <script type="text/javascript">
+    var uploadUrl = '/upload/<%= id %>';
+    var progressUrl = '/progress/<%= id %>';
+  </script>
   <script type="text/javascript" src="main.js"></script>
 </head>
 <body>
-  <form id="superUploadForm" action="/upload/<%= fileUuid %>" method="post" enctype="multipart/form-data">
+  <form id="superUploadForm" action="/upload/<%= id %>" method="post" enctype="multipart/form-data">
     <input type="file" id="file" name="file" />
     <div id="fileInformation">
       <span id="progress"></span>
