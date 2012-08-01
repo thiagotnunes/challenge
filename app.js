@@ -1,17 +1,23 @@
+// Uploads Path
 var uploadPath = '/public/uploads';
 var TMPDIR = __dirname + uploadPath;
 
 // Custom modules
-var filesParser = require('./lib/files_parser')(uploadPath);
-var tracker = require('./lib/uploads_tracker')();
-var uploadsParser = require('./lib/uploads_parser')(TMPDIR, filesParser, tracker);
+var filesParser = require('./lib/files_parser');
+var uploadsTracker = require('./lib/uploads_tracker');
+var progressTracker = require('./lib/progress_tracker');
+var uploadsParser = require('./lib/uploads_parser');
 
 // Vendor modules
 var formidable = require('formidable');
 var express = require('express');
 var uuid = require('node-uuid');
 
+// Application variables
 var app = express();
+var parser = filesParser(uploadPath);
+var dao = uploadsTracker();
+
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/javascript'));
 app.use('html5', express.static(__dirname + '/public/javascript/html5'));
@@ -30,11 +36,12 @@ app.get('/public/uploads/:filename', function(req, res) {
 });
 
 app.post('/upload/:fileUuid', function(req, res) {
-  uploadsParser.handle(new formidable.IncomingForm(), req, res);
+  var tracker = progressTracker(req.params.fileUuid, dao);
+  uploadsParser(TMPDIR, parser, tracker).handle(new formidable.IncomingForm(), req, res);
 });
 
 app.get('/progress/:fileUuid', function(req, res) {
-  var progress = tracker.progressFor(req.params.fileUuid);
+  var progress = dao.progressFor(req.params.fileUuid);
   res.json({
     uuid: req.params.fileUuid,
     progress: progress
