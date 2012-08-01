@@ -7,6 +7,7 @@ var formParser = require('./lib/form_parser');
 var uploadsDao = require('./lib/uploads_dao');
 var progresses = require('./lib/progresses');
 var progressTracker = require('./lib/progress_tracker');
+var uploadResponse = require('./lib/upload_response');
 var uploader = require('./lib/uploader');
 
 // Vendor modules
@@ -38,9 +39,12 @@ app.get('/public/uploads/:filename', function(req, res) {
 });
 
 app.post('/upload/:id', function(req, res) {
-  var tracker = progressTracker(req.params.id, _progresses);
-  var parser = formParser(res, _filesParser);
-  uploader(parser, tracker).process(new formidable.IncomingForm(), req, res);
+  var id = req.params.id;
+  var tracker = progressTracker(id, _progresses);
+  var responseHandler = uploadResponse(id, res, _uploadsDao);
+  var parser = formParser(responseHandler.uploadCallback, _filesParser);
+
+  uploader(parser, tracker).process(new formidable.IncomingForm(), req);
 });
 
 app.get('/progress/:id', function(req, res) {
@@ -53,3 +57,4 @@ app.get('/progress/:id', function(req, res) {
 });
 
 app.listen(3000);
+console.log('App started listening on port 3000');

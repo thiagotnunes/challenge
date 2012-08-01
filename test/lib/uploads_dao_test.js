@@ -5,16 +5,9 @@ describe('Uploads dao', function() {
     dao = require('../../lib/uploads_dao.js')();
   });
 
-  it('should retrieve the percentage of a given file', function() {
-    var file = "fileId";
-    var percentage = 25.54674;
-    dao.setProgress(file, percentage);
+  it('should create an upload with the given information', function() {
+    dao.create('101', { path: 'this is the file path' });
 
-    expect(dao.progressFor(file)).to.equal("26");
-  });
-
-  it('should return undefined for a percentage of a file that is not in progress', function() {
-    var file = "unknown file";
-    expect(dao.progressFor(file) === undefined).to.be.ok;
+    expect(dao.find('101').path).to.equal('this is the file path');
   });
 });

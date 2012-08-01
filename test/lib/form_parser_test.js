@@ -1,27 +1,17 @@
 describe('Form parser', function() {
-  var response;
-  var parser;
-
-  beforeEach(function() {
-    response = {
-      contentType: function() {},
-      send: function() {}
-    };
-  });
-
   it('should parse the form', function() {
+    var callback = sinon.spy();
     var files = {};
+    var file = {};
     var filesParser = {
-      first: sinon.stub().withArgs(files).returns({})
+      first: function() {}
     };
-    parser = require('../../lib/form_parser.js')(response, filesParser);
-
-    var responseMock = sinon.mock(response);
-    responseMock.expects("contentType").withArgs("text/plain").once();
-    responseMock.expects("send").withArgs(JSON.stringify({})).once();
+    var parser = require('../../lib/form_parser.js')(callback, filesParser);
+    var mockFilesParser = sinon.mock(filesParser);
+    mockFilesParser.expects("first").withArgs(files).returns(file).once();
 
     parser.parse(null, null, files);
 
-    responseMock.verify();
+    expect(callback.calledWith(file)).to.be.ok;
   });
 });
