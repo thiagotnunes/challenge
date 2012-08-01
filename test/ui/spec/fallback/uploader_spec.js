@@ -9,7 +9,8 @@ describe('Fallback uploader', function () {
     };
     iframe = {
       contents: function() {},
-      load: {}
+      on: function() {},
+      unbind: function() {}
     };
     uploader = fallbackUploader(iframe, progressTracker);
 
@@ -45,12 +46,15 @@ describe('Fallback uploader', function () {
     };
     var mockForm = sinon.mock(form);
     mockForm.expects("submit").once();
+    var mockIframe = sinon.mock(iframe);
+    mockIframe.expects("unbind").once();
     setInterval = sinon.mock();
     setInterval.withArgs(progressTracker.checkProgress, 2000).returns('interval');
 
     uploader.upload(form);
 
     setInterval.verify();
+    mockIframe.verify();
     mockForm.verify();
   });
 });

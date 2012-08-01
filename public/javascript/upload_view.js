@@ -41,8 +41,8 @@ function uploadView(ids) {
   };
 
   var clearUploadedData = function() {
-    $(progressId).text('');
-    $(pathId).text('');
+    $(progressId).empty();
+    $(pathId).empty();
   };
 
   return {
