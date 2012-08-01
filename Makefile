@@ -1,4 +1,5 @@
 TESTS = test/lib/*.js
+FUNCTIONAL_TESTS = test/functional/*.js
 REPORTER = spec
 
 test:
@@ -9,4 +10,11 @@ test:
 		--growl \
 		$(TESTS)
 
-.PHONY: test
+functional:
+	@NODE_ENV=test ./node_modules/.bin/mocha \
+		--reporter $(REPORTER) \
+		--timeout 100 \
+		--growl \
+		$(FUNCTIONAL_TESTS)
+
+.PHONY: test functional
