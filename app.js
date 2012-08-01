@@ -7,7 +7,7 @@ var filesParser = require('./lib/files_parser');
 var formParser = require('./lib/form_parser');
 var uploadsDao = require('./lib/uploads_dao');
 var progressTracker = require('./lib/progress_tracker');
-var uploadsParser = require('./lib/uploads_parser');
+var uploader = require('./lib/uploader');
 
 // Vendor modules
 var formidable = require('formidable');
@@ -39,7 +39,7 @@ app.get('/public/uploads/:filename', function(req, res) {
 app.post('/upload/:id', function(req, res) {
   var tracker = progressTracker(req.params.id, _uploadsDao);
   var parser = formParser(res, _filesParser);
-  uploadsParser(TMPDIR, parser, tracker).handle(new formidable.IncomingForm(), req, res);
+  uploader(TMPDIR, parser, tracker).handle(new formidable.IncomingForm(), req, res);
 });
 
 app.get('/progress/:id', function(req, res) {

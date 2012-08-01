@@ -1,8 +1,8 @@
-describe('Uploads parser', function() {
+describe('Uploader', function() {
   var form;
   var formParser;
   var tracker;
-  var parser;
+  var uploader;
 
   beforeEach(function() {
     form = {
@@ -15,16 +15,16 @@ describe('Uploads parser', function() {
     formParser = {
       parse: function() {}
     };
-    parser = require('../../lib/uploads_parser')('uploadDir', formParser, tracker);
+    uploader = require('../../lib/uploader')('uploadDir', formParser, tracker);
   });
 
-  it('should handle the upload', function() {
+  it('should process the given request', function() {
     var request = {};
     var mockForm = sinon.mock(form);
     mockForm.expects("on").withArgs("progress", tracker.trackProgress).once();
     mockForm.expects("parse").withArgs(request, formParser.parse).once();
 
-    parser.handle(form, request);
+    uploader.process(form, request);
 
     expect(form.uploadDir).to.be.equal('uploadDir');
     mockForm.verify();
