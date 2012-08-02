@@ -2,6 +2,7 @@ describe('Form parser', function() {
   it('should parse the form', function() {
     var callback = sinon.spy();
     var files = {};
+    var fields = {};
     var file = {};
     var filesParser = {
       first: function() {}
@@ -10,8 +11,8 @@ describe('Form parser', function() {
     var mockFilesParser = sinon.mock(filesParser);
     mockFilesParser.expects("first").withArgs(files).returns(file).once();
 
-    parser.parse(null, null, files);
+    parser.parse(null, fields, files);
 
-    expect(callback.calledWith(file)).to.be.ok;
+    expect(callback.calledWith(file, fields)).to.be.ok;
   });
 });

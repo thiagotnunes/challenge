@@ -10,4 +10,12 @@ describe('Uploads dao', function() {
 
     expect(dao.find('101').path).to.equal('this is the file path');
   });
+
+  it('should update an upload with the given attributes', function() {
+    dao.create('101', { path: 'this is the file path'});
+
+    dao.update('101', { description: 'this is the description' });
+
+    expect(dao.find('101').description).to.equal('this is the description');
+  });
 });

@@ -1,26 +1,49 @@
 describe('Upload response', function() {
-  it('should respond to upload with json representation of the file', function() {
-    var id = '101';
+
+  var id;
+  var file;
+  var fields;
+  var mockDao;
+  var mockResponse;
+  var _uploadResponse;
+
+  beforeEach(function() {
     var response = {
       contentType: function() {},
       send: function() {}
     };
     var dao = {
-      create: function() {}
+      create: function() {},
+      update: function() {}
     };
-    var file = {
+    id = '101';
+    file = {
       path: 'this is the path'
     };
-    var mockResponse = sinon.mock(response);
+    fields = {
+      description: 'this is the description'
+    };
+    mockDao = sinon.mock(dao);
+    mockResponse = sinon.mock(response);
+    _uploadResponse = require('../../lib/upload_response.js')(id, response, dao);
+  });
+
+  it('should respond to upload with json representation of the file', function() {
     mockResponse.expects("contentType").withArgs("text/plain").once();
     mockResponse.expects("send").withArgs(JSON.stringify(file)).once();
-    var mockDao = sinon.mock(dao);
     mockDao.expects("create").withArgs(id, file).once();
 
-    var _uploadResponse = require('../../lib/upload_response.js')(id, response, dao);
-    _uploadResponse.uploadCallback(file);
+    _uploadResponse.uploadCallback(file, fields);
 
     mockResponse.verify();
+    mockDao.verify();
+  });
+
+  it('should add description to the existing file and redirect user to the show page', function() {
+    mockDao.expects("update").withArgs(id, fields).once();
+
+    _uploadResponse.saveCallback(file, fields); 
+
     mockDao.verify();
   });
 });
