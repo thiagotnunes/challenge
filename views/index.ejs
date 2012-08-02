@@ -3,34 +3,64 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SuperUpload</title>
-  <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
-  <script type="text/javascript" src="upload_view.js"></script>
-  <script type="text/javascript" src="command_factory.js"></script>
-  <script type="text/javascript" src="html5/event_listener.js"></script>
-  <script type="text/javascript" src="html5/event_binder.js"></script>
-  <script type="text/javascript" src="html5/form_data_factory.js"></script>
-  <script type="text/javascript" src="html5/uploader.js"></script>
-  <script type="text/javascript" src="html5/html5_command.js"></script>
-  <script type="text/javascript" src="fallback/progress_tracker.js"></script>
-  <script type="text/javascript" src="fallback/uploader.js"></script>
-  <script type="text/javascript" src="fallback/fallback_command.js"></script>
+  <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="javascript/upload_view.js"></script>
+  <script type="text/javascript" src="javascript/command_factory.js"></script>
+  <script type="text/javascript" src="javascript/html5/event_listener.js"></script>
+  <script type="text/javascript" src="javascript/html5/event_binder.js"></script>
+  <script type="text/javascript" src="javascript/html5/form_data_factory.js"></script>
+  <script type="text/javascript" src="javascript/html5/uploader.js"></script>
+  <script type="text/javascript" src="javascript/html5/html5_command.js"></script>
+  <script type="text/javascript" src="javascript/fallback/progress_tracker.js"></script>
+  <script type="text/javascript" src="javascript/fallback/uploader.js"></script>
+  <script type="text/javascript" src="javascript/fallback/fallback_command.js"></script>
   <script type="text/javascript">
     var uploadUrl = '/upload/<%= id %>';
     var progressUrl = '/progress/<%= id %>';
   </script>
-  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="javascript/main.js"></script>
+  <link rel="stylesheet" href="stylesheet/bootstrap.min.css" />
+  <link rel="stylesheet" href="stylesheet/bootstrap-responsive.min.css" />
+  <link rel="stylesheet" href="stylesheet/upload.css" />
 </head>
 <body>
-  <form id="superUploadForm" action="/save/<%= id %>" method="post" enctype="multipart/form-data">
-    <input type="file" id="file" name="file" />
-    <div id="fileInformation">
-      <span id="progress"></span>
-      <span id="path"></span>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">SuperUpload</a>
+      </div>
     </div>
-    <textarea id="description" name="description"></textarea>
-    <br />
-    <input type="submit" value="Save" />
-  </form>
-  <iframe id="hidden_frame" name="hidden_frame" style="display: none;" />
+  </div>
+
+  <div class="container">
+
+    <form id="superUploadForm" action="/save/<%= id %>" method="post" enctype="multipart/form-data" class="form-horizontal">
+      <fieldset>
+        <label for="file" class="control-label">Choose a file</label>
+        <div class="controls">
+          <input type="file" id="file" name="file" />
+          <div id="fileInformation" class="file-information">
+            <span id="progress"></span>
+            <span id="path"></span>
+          </div>
+        </div>
+        <label for="description" class="control-label">Description</label>
+        <div class="controls">
+          <textarea id="description" name="description" class="input-xlarge"></textarea>
+        </div>
+        <div class="form-actions">
+          <input type="button" id="save" value="Save" class="btn btn-primary"/>
+        </div>
+      </fieldset>
+    </form>
+
+    <iframe id="hidden_frame" name="hidden_frame" class="hidden-frame" />
+
+  </div>
 </body>
 </html>

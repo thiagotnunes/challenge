@@ -23,9 +23,10 @@ var _uploadsDao = uploadsDao();
 
 // Express configuration
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public/javascript'));
-app.use('html5', express.static(__dirname + '/public/javascript/html5'));
-app.use('fallback', express.static(__dirname + '/public/javascript/fallback'));
+app.use('/javascript', express.static(__dirname + '/public/javascript'));
+app.use('/javascript/html5', express.static(__dirname + '/public/javascript/html5'));
+app.use('/javascript/fallback', express.static(__dirname + '/public/javascript/fallback'));
+app.use('/stylesheet', express.static(__dirname + '/public/stylesheet'));
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });

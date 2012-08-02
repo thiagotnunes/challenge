@@ -1,0 +1,12 @@
+body {
+  padding-top: 60px;
+}
+
+.hidden-frame {
+  display: none;
+}
+
+.file-information {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
