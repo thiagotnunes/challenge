@@ -1,4 +1,4 @@
-require('should');
+var expect = require('chai').expect;
 var http = require('request');
 
 describe('API tests', function() {
@@ -6,7 +6,7 @@ describe('API tests', function() {
 
   it('should get OK for index', function(done) {
     http.get(baseUrl, function(error, response, body) {
-      response.statusCode.should.equal(200);
+      expect(response.statusCode).to.equal(200);
       done();
     });
   });
@@ -32,7 +32,7 @@ describe('API tests', function() {
         var uploaded = JSON.parse(body);
         http.get(baseUrl + uploaded.path, function(err, res, bod) {
           var actual_attachment = JSON.parse(bod);
-          actual_attachment['yoda'].should.equal(attachment['yoda']);
+          expect(actual_attachment['yoda']).to.equal(attachment['yoda']);
           done();
         });
       });
@@ -43,8 +43,8 @@ describe('API tests', function() {
         var uploaded = JSON.parse(body);
         http.get(baseUrl + '/progress/101', function(err, res, bod) {
           var file = JSON.parse(bod);
-          file.id.should.equal('101');
-          file.progress.should.equal('100');
+          expect(file.id).to.equal('101');
+          expect(file.progress).to.equal('100');
           done();
         });
       });
