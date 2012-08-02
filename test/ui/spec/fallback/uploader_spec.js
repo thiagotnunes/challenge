@@ -10,7 +10,8 @@ describe('Fallback uploader', function () {
     iframe = {
       contents: function() {},
       on: function() {},
-      unbind: function() {}
+      unbind: function() {},
+      attr: function() {}
     };
     uploader = fallbackUploader(iframe, progressTracker);
 
@@ -40,18 +41,29 @@ describe('Fallback uploader', function () {
     clearInterval.verify()
   });
 
-  it('should register interval on the tracker, set the iframe load function and then submit the form', function() {
+  it('should register interval on the tracker, set the iframe load function and then submit the form with the proper url', function() {
     var form = { 
-      submit: function() {} 
+      submit: function() {},
+      attr: function() {},
+      removeAttr: function() {}
     };
+    var iframeId = "iframe id"
+    var previousUrl = "previous action";
+    var uploadUrl = "upload url";
     var mockForm = sinon.mock(form);
+    mockForm.expects("attr").withArgs("action").returns(previousUrl).once();
+    mockForm.expects("attr").withArgs("action", uploadUrl).once();
+    mockForm.expects("attr").withArgs("target", iframeId).once();
     mockForm.expects("submit").once();
+    mockForm.expects("attr").withArgs("action", previousUrl).once();
+    mockForm.expects("removeAttr").withArgs("target").once();
     var mockIframe = sinon.mock(iframe);
     mockIframe.expects("unbind").once();
+    mockIframe.expects("attr").withArgs("id").returns(iframeId).once();
     setInterval = sinon.mock();
     setInterval.withArgs(progressTracker.checkProgress, 2000).returns('interval');
 
-    uploader.upload(form);
+    uploader.upload(form, uploadUrl);
 
     setInterval.verify();
     mockIframe.verify();

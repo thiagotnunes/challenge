@@ -9,11 +9,20 @@ var fallbackUploader = function(iframe, tracker) {
     clearInterval(interval);
   };
 
-  var upload = function(form) {
+  var submit = function(form, url) {
+    var previousAction = form.attr('action');
+    form.attr('action', url);
+    form.submit();
+    form.attr('action', previousAction);
+  };
+
+  var upload = function(form, url) {
     var interval = setInterval(tracker.checkProgress, 2000);
     iframe.unbind();
     iframe.on('load', function() { uploadComplete(interval); });
-    form.submit();
+    form.attr('target', iframe.attr('id'));
+    submit(form, url);
+    form.removeAttr('target');
   };
 
   return {
