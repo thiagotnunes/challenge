@@ -21,15 +21,16 @@ var _filesParser = filesParser(uploadPath);
 var _progresses = progresses();
 var _uploadsDao = uploadsDao();
 
+// Express configuration
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public/javascript'));
 app.use('html5', express.static(__dirname + '/public/javascript/html5'));
 app.use('fallback', express.static(__dirname + '/public/javascript/fallback'));
-
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+// Routes
 app.get('/', function(req, res) {
   res.render('index', { id: uuid.v4() });
 });
@@ -65,5 +66,6 @@ app.get('/progress/:id', function(req, res) {
   });
 });
 
+// Start the server
 app.listen(3000);
 console.log('App started listening on port 3000');
