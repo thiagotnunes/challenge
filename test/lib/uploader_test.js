@@ -26,6 +26,7 @@ describe('Uploader', function() {
 
     uploader.processAndTrackProgress(form, request, tracker);
 
+    expect(form.keepExtensions).to.be.ok;
     mockForm.verify();
   });
 
