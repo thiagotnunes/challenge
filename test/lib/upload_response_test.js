@@ -10,11 +10,13 @@ describe('Upload response', function() {
   beforeEach(function() {
     var response = {
       contentType: function() {},
-      send: function() {}
+      send: function() {},
+      render: function() {}
     };
     var dao = {
       create: function() {},
-      update: function() {}
+      update: function() {},
+      find: function() {}
     };
     id = '101';
     file = {
@@ -39,8 +41,11 @@ describe('Upload response', function() {
     mockDao.verify();
   });
 
-  it('should add description to the existing file and redirect user to the show page', function() {
+  it('should add description to the existing file and render the show page', function() {
+    var upload = {};
     mockDao.expects("update").withArgs(id, fields).once();
+    mockDao.expects("find").withArgs(id).returns(upload).once();
+    mockResponse.expects("render").withArgs("show", { upload: upload }).once();
 
     _uploadResponse.saveCallback(file, fields); 
 

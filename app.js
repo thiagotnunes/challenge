@@ -44,7 +44,7 @@ app.post('/upload/:id', function(req, res) {
   var responseHandler = uploadResponse(id, res, _uploadsDao);
   var parser = formParser(responseHandler.uploadCallback, _filesParser);
 
-  uploader(parser, tracker).process(new formidable.IncomingForm(), req);
+  uploader(parser).processAndTrackProgress(new formidable.IncomingForm(), req, tracker);
 });
 
 app.post('/save/:id', function(req, res) {
@@ -56,10 +56,11 @@ app.post('/save/:id', function(req, res) {
 });
 
 app.get('/progress/:id', function(req, res) {
+  var id = req.params.id;
   var progress = _progresses.progressFor(id);
 
   res.json({
-    id: req.params.id,
+    id: id,
     progress: progress
   });
 });

@@ -1,7 +1,7 @@
 describe('Uploader', function() {
   var form;
   var formParser;
-  var tracker;
+  var request;
   var uploader;
 
   beforeEach(function() {
@@ -9,19 +9,28 @@ describe('Uploader', function() {
       parse: function() {},
       on: function() {}
     };
-    tracker = {
-      trackProgress: function() {}
-    };
     formParser = {
       parse: function() {}
     };
-    uploader = require('../../lib/uploader')(formParser, tracker);
+    request = {};
+    uploader = require('../../lib/uploader')(formParser);
+  });
+
+  it('should process the given request and track its progress', function() {
+    var tracker = {
+      trackProgress: function() {}
+    };
+    var mockForm = sinon.mock(form);
+    mockForm.expects("on").withArgs("progress", tracker.trackProgress).once();
+    mockForm.expects("parse").withArgs(request, formParser.parse).once();
+
+    uploader.processAndTrackProgress(form, request, tracker);
+
+    mockForm.verify();
   });
 
   it('should process the given request', function() {
-    var request = {};
     var mockForm = sinon.mock(form);
-    mockForm.expects("on").withArgs("progress", tracker.trackProgress).once();
     mockForm.expects("parse").withArgs(request, formParser.parse).once();
 
     uploader.process(form, request);
