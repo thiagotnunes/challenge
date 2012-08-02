@@ -1,7 +1,7 @@
 require('should');
 var http = require('request');
 
-describe('App', function() {
+describe('API tests', function() {
   var baseUrl = 'http://localhost:3000';
 
   it('should get OK for index', function(done) {
@@ -49,7 +49,5 @@ describe('App', function() {
         });
       });
     });
-
   });
-
 });
