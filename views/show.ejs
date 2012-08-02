@@ -3,12 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SuperUpload</title>
+  <link rel="stylesheet" href="/stylesheet/bootstrap.min.css" />
+  <link rel="stylesheet" href="/stylesheet/bootstrap-responsive.min.css" />
+  <link rel="stylesheet" href="/stylesheet/upload.css" />
 </head>
 <body>
-	The uploaded file is: <br />
-  Name: <%= upload.name %> <br />
-  Path: <a href="<%= upload.path %>">Uploaded to here.</a> <br />
-  Description: <%= upload.description %> <br />
-  <a href="/">Upload another file.</a>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">SuperUpload</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div>
+      <h4>The uploaded file is: </h4><br />
+      <strong>Original File Name:</strong> <%= upload.name %> <br />
+      <a href="<%= upload.path %>">Uploaded to here.</a> <br />
+      <strong>Description:</strong> <%= upload.description %> <br />
+      <br />
+      <a href="/" class="btn btn-primary">Upload another file.<a/>
+    </div>
+  </div>
 </body>
 </html>
