@@ -5,6 +5,7 @@ var uploadPath = '/public/uploads';
 var filesParser = require('./lib/files_parser');
 var formParser = require('./lib/form_parser');
 var uploadsDao = require('./lib/uploads_dao');
+var formValidator = require('./lib/form_validator');
 var progresses = require('./lib/progresses');
 var progressTracker = require('./lib/progress_tracker');
 var uploadResponse = require('./lib/upload_response');
@@ -20,6 +21,7 @@ var app = express();
 var _filesParser = filesParser(uploadPath);
 var _progresses = progresses();
 var _uploadsDao = uploadsDao();
+var _formValidator = formValidator(_uploadsDao);
 
 // Express configuration
 app.set('view engine', 'ejs');
@@ -51,7 +53,7 @@ app.post('/upload/:id', function(req, res) {
 
 app.post('/save/:id', function(req, res) {
   var id = req.params.id;
-  var responseHandler = uploadResponse(id, res, _uploadsDao);
+  var responseHandler = uploadResponse(id, res, _uploadsDao, _formValidator);
   var parser = formParser(responseHandler.saveCallback, _filesParser);
 
   uploader(parser).process(new formidable.IncomingForm(), req);

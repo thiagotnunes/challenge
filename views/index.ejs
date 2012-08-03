@@ -3,26 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<title>SuperUpload</title>
-  <script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
-  <script type="text/javascript" src="javascript/upload_view.js"></script>
-  <script type="text/javascript" src="javascript/command_factory.js"></script>
-  <script type="text/javascript" src="javascript/html5/event_listener.js"></script>
-  <script type="text/javascript" src="javascript/html5/event_binder.js"></script>
-  <script type="text/javascript" src="javascript/html5/form_data_factory.js"></script>
-  <script type="text/javascript" src="javascript/html5/uploader.js"></script>
-  <script type="text/javascript" src="javascript/html5/html5_command.js"></script>
-  <script type="text/javascript" src="javascript/fallback/progress_tracker.js"></script>
-  <script type="text/javascript" src="javascript/fallback/uploader.js"></script>
-  <script type="text/javascript" src="javascript/fallback/fallback_command.js"></script>
-  <script type="text/javascript" src="javascript/save_action.js"></script>
+  <script type="text/javascript" src="/javascript/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="/javascript/upload_view.js"></script>
+  <script type="text/javascript" src="/javascript/command_factory.js"></script>
+  <script type="text/javascript" src="/javascript/html5/event_listener.js"></script>
+  <script type="text/javascript" src="/javascript/html5/event_binder.js"></script>
+  <script type="text/javascript" src="/javascript/html5/form_data_factory.js"></script>
+  <script type="text/javascript" src="/javascript/html5/uploader.js"></script>
+  <script type="text/javascript" src="/javascript/html5/html5_command.js"></script>
+  <script type="text/javascript" src="/javascript/fallback/progress_tracker.js"></script>
+  <script type="text/javascript" src="/javascript/fallback/uploader.js"></script>
+  <script type="text/javascript" src="/javascript/fallback/fallback_command.js"></script>
+  <script type="text/javascript" src="/javascript/save_action.js"></script>
   <script type="text/javascript">
     var uploadUrl = '/upload/<%= id %>';
     var progressUrl = '/progress/<%= id %>';
   </script>
-  <script type="text/javascript" src="javascript/main.js"></script>
-  <link rel="stylesheet" href="stylesheet/bootstrap.min.css" />
-  <link rel="stylesheet" href="stylesheet/bootstrap-responsive.min.css" />
-  <link rel="stylesheet" href="stylesheet/upload.css" />
+  <script type="text/javascript" src="/javascript/main.js"></script>
+  <link rel="stylesheet" href="/stylesheet/bootstrap.min.css" />
+  <link rel="stylesheet" href="/stylesheet/bootstrap-responsive.min.css" />
+  <link rel="stylesheet" href="/stylesheet/upload.css" />
 </head>
 <body>
   <div class="navbar navbar-fixed-top">
@@ -39,6 +39,11 @@
   </div>
 
   <div class="container">
+    <% if(typeof error !== "undefined") { %>
+    <div class="alert alert-error">
+      <%= error %>
+    </div>
+    <% } %>
 
     <form id="superUploadForm" action="/save/<%= id %>" method="post" enctype="multipart/form-data" class="form-horizontal">
       <fieldset>
