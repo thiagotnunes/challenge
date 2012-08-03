@@ -5,19 +5,22 @@ describe('Save action', function () {
       file: function() {}
     };
     var file = {
-      val: sinon.spy()
+      replaceWith: sinon.spy(),
+      clone: function() {} 
     };
     var form = {
       submit: sinon.spy()
     };
+    var cloned = {};
     sinon.stub(view, "form").returns(form);
     sinon.stub(view, "file").returns(file);
+    sinon.stub(file, "clone").returns(cloned);
 
     var action = saveAction(view);
 
     action.save();
 
-    expect(file.val.calledWith('')).toBeTruthy();
+    expect(file.replaceWith.calledWith(cloned)).toBeTruthy();
   });
 });
 
