@@ -6,6 +6,7 @@ describe('Save action', function () {
     };
     var file = {
       replaceWith: sinon.spy(),
+      val: sinon.spy(),
       clone: function() {} 
     };
     var form = {
@@ -20,6 +21,7 @@ describe('Save action', function () {
 
     action.save();
 
+    expect(file.val.calledWith('')).toBeTruthy();
     expect(file.replaceWith.calledWith(cloned)).toBeTruthy();
   });
 });
