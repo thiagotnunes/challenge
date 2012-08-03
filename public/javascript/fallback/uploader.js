@@ -17,7 +17,7 @@ var fallbackUploader = function(iframe, tracker) {
   };
 
   var upload = function(form, url) {
-    var interval = setInterval("tracker.checkProgress()", 2000);
+    var interval = setInterval(tracker.checkProgress, 2000);
     iframe.unbind();
     iframe.on('load', function() { uploadComplete(interval); });
     form.attr('target', iframe.attr('id'));
