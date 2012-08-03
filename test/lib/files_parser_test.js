@@ -18,4 +18,12 @@ describe('Upload Parser', function() {
     expect(file['path']).to.equal('/public/uploads/the given path');
   });
 
+  it('should return undefined when there is no files attached', function() {
+    var files = {};
+
+    var file = parser.first(files);
+
+    expect(file).not.to.be.ok;
+  });
+
 });
