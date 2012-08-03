@@ -63,6 +63,8 @@ app.get('/progress/:id', function(req, res) {
   var id = req.params.id;
   var progress = _progresses.progressFor(id);
 
+  res.set('Cache-Control', 'max-age=0,no-cache,no-store,post-check=0,pre-check=0');
+  res.set('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT');
   res.json({
     id: id,
     progress: progress
