@@ -37,6 +37,12 @@ Then execute the following:
 
 You can see a live example at [demo](http://nunesupload.herokuapp.com).
 
+## How to execute the tests
+
+* Server Side Unit testing: make
+* Functional testing: make sure you have the server up (node app.js) and execute make functional
+* Client side Unit testing: open in your browser the file test/ui/SpecRunner.html
+
 ## Solution
 
 The whole solution was based upon AJAX file upload. Since one of the requirements was to support browser that do not implement HTML 5 features, the application was divided in 2 strategies:
