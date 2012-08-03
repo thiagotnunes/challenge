@@ -62,7 +62,6 @@ app.post('/save/:id', function(req, res) {
 app.get('/progress/:id', function(req, res) {
   var id = req.params.id;
   var progress = _progresses.progressFor(id);
-  console.log('Progress for ' + id + ' is ' + progress + ' %');
 
   res.json({
     id: id,
