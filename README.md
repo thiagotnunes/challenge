@@ -39,7 +39,7 @@ You can see a live example at [demo](http://nunesupload.herokuapp.com).
 
 ## How to execute the tests
 
-* Server Side Unit testing: make
+* Server Side Unit testing: execute make
 * Functional testing: make sure you have the server up (node app.js) and execute make functional
 * Client side Unit testing: open in your browser the file test/ui/SpecRunner.html
 
