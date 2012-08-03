@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var http = require('request');
+var querystring = require('querystring');
 
 describe('API tests', function() {
   var baseUrl = 'http://localhost:3000';
@@ -45,6 +46,22 @@ describe('API tests', function() {
           var file = JSON.parse(bod);
           expect(file.id).to.equal('101');
           expect(file.progress).to.equal('100');
+          done();
+        });
+      });
+    });
+
+    it('should save a file with its description after uploading and be shown the upload path and description', function(done) {
+      http(uploadData(), function(error, response, body) {
+        var uploaded = JSON.parse(body);
+        http.post({
+          uri: baseUrl + '/save/101', 
+          form: {
+            description: 'description of my life'
+          }
+        }, function(err, res, bod) {
+          expect(res.statusCode).to.equal(200);
+          expect(bod.indexOf('description of my life') !== -1).to.be.ok
           done();
         });
       });
