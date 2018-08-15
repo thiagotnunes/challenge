@@ -70,7 +70,7 @@ The dependencies used for the project were the following:
 
 The test dependencies used for the project were the following:
 
-1. [Jasmine](http://pivotal.github.com/jasmine/): BDD framework for javascript. Used on the client side testing.
+1. [Jasmine](https://jasmine.github.io/): BDD framework for javascript. Used on the client side testing.
 2. [Mocha](http://visionmedia.github.com/mocha/): test framework for NodeJs. Used on the server side testing.
 3. [Chai](http://chaijs.com/): BDD assertion library for NodeJs. Used on the server side testing.
 4. [Sinon](http://sinonjs.org/): Spies, mocks and stubs for javascript. Used both on client and server sides testing.
